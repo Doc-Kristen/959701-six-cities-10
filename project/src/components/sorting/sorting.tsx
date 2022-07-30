@@ -8,7 +8,7 @@ const Sorting = ({ offers }: SortingProps): JSX.Element => (
   <form className="places__sorting" action="#" method="get">
     <span className="places__sorting-caption">Sort by</span>
     <span className="places__sorting-type">
-                Popular
+      Popular
       <svg className="places__sorting-arrow" width={7} height={4}>
         <use xlinkHref="#icon-arrow-select" />
       </svg>
@@ -18,16 +18,16 @@ const Sorting = ({ offers }: SortingProps): JSX.Element => (
         className="places__option places__option--active"
         tabIndex={0}
       >
-                  Popular
+        Popular
       </li>
       <li className="places__option" tabIndex={0}>
-                  Price: low to high
+        Price: low to high
       </li>
       <li className="places__option" tabIndex={0}>
-                  Price: high to low
+        Price: high to low
       </li>
       <li className="places__option" tabIndex={0}>
-                  Top rated first
+        Top rated first
       </li>
     </ul>
   </form>

@@ -1,6 +1,6 @@
 import { Offers } from '../types/offers';
 
-export const offers : Offers = [
+export const offers: Offers = [
   {
     bedrooms: 3,
     city: {
@@ -47,7 +47,7 @@ export const offers : Offers = [
         longitude: 4.895168,
         zoom: 10
       },
-      name: 'Amsterdam'
+      name: 'Paris'
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: [
@@ -85,7 +85,7 @@ export const offers : Offers = [
         longitude: 4.895168,
         zoom: 10
       },
-      name: 'Amsterdam'
+      name: 'Brussels'
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: [
@@ -104,7 +104,7 @@ export const offers : Offers = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 52.3909553943508,
+      latitude: 52.4987553943508,
       longitude: 4.929309666406198,
       zoom: 8
     },
@@ -123,7 +123,7 @@ export const offers : Offers = [
         longitude: 4.895168,
         zoom: 10
       },
-      name: 'Amsterdam'
+      name: 'Brussels'
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: [

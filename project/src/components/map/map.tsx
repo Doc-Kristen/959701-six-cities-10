@@ -2,14 +2,14 @@ import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
 import useMap from '../../hooks/useMap';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
-import { City } from '../../types/offers';
+import { getCityData } from '../../utils';
+import { useAppSelector } from '../../hooks';
 import { Offers, Offer } from '../../types/offers';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  city: City;
   offers: Offers;
-  selectedOffer: Offer | undefined;
+  selectedOffer?: Offer | undefined;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,8 +25,10 @@ const currentCustomIcon = new Icon({
 });
 
 const Map = (props: MapProps): JSX.Element => {
-  const { city, offers, selectedOffer } = props;
+  const { offers, selectedOffer } = props;
   const mapRef = useRef(null);
+  const selectedCity = useAppSelector((state) => state.city);
+  const city = getCityData(offers, selectedCity);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
@@ -46,7 +48,14 @@ const Map = (props: MapProps): JSX.Element => {
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer]);
+    return () => {
+      map?.eachLayer((it) => {
+        if (it.getPane()?.classList.contains('leaflet-marker-pane')) {
+          it.remove();
+        }
+      });
+    };
+  });
 
   return <div style={{ height: '500px' }} ref={mapRef}></div>;
 };
