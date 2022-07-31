@@ -1,5 +1,6 @@
 import Header from '../../components/header/header';
 import Filter from '../../components/filter/filter';
+import { cities } from '../../const';
 
 const MainEmptyScreen = (): JSX.Element => (
 
@@ -7,7 +8,7 @@ const MainEmptyScreen = (): JSX.Element => (
     <Header />
     <main className='page__main page__main--index page__main--index-empty'>
       <h1 className='visually-hidden'>Cities</h1>
-      <Filter />
+      <Filter cities={cities} />
       <div className='cities'>
         <div className='cities__places-container cities__places-container--empty container'>
           <section className='cities__no-places'>

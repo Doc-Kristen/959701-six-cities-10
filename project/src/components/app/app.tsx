@@ -8,24 +8,26 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import RoomScreen from '../../pages/room-screen/room-screen';
 import MainEmptyScreen from '../../pages/main-empty-screen/main-empty-screen';
+import { useAppSelector } from '../../hooks';
 
 type AppProps = {
   offers: Offers,
 }
 
-const App = ({ offers }: AppProps): JSX.Element =>
+const App = ({ offers }: AppProps): JSX.Element => {
+  const offersByCity = useAppSelector((state) => state.offers);
 
-  (
+  return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
           element={
-            offers.length ?
+            offersByCity.length > 0 ?
               <MainScreen
-                city={offers[0].city}
-                offers={offers}
-              /> : <MainEmptyScreen />
+                offers={offersByCity}
+              />
+              : <MainEmptyScreen />
           }
         />
         <Route
@@ -55,4 +57,5 @@ const App = ({ offers }: AppProps): JSX.Element =>
       </Routes>
     </BrowserRouter>
   );
+};
 export default App;

@@ -2,19 +2,23 @@ import Map from '../../components/map/map';
 import Header from '../../components/header/header';
 import Filter from '../../components/filter/filter';
 import OffersList from '../../components/offers-list/offers-list';
-import { Offers, Offer, City } from '../../types/offers';
+import { Offers, Offer } from '../../types/offers';
 import { useState } from 'react';
+import { cities } from '../../const';
+import { useAppSelector } from '../../hooks';
+import Sorting from '../../components/sorting/sorting';
 
 type MainScreenProps = {
   offers: Offers
-  city: City;
 }
 
-const MainScreen = ({ offers, city }: MainScreenProps): JSX.Element => {
+const MainScreen = ({ offers }: MainScreenProps): JSX.Element => {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
   );
 
+  const offersByCity = useAppSelector((state) => state.offers);
+  const selectedCity = useAppSelector((state) => state.city);
   const handleOfferMouseOver = (id: number) => {
     const currentOffer = offers.find((offer) => offer.id === id);
     setSelectedOffer(currentOffer);
@@ -26,19 +30,25 @@ const MainScreen = ({ offers, city }: MainScreenProps): JSX.Element => {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Filter />
+          <Filter
+            cities={cities}
+          />
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <OffersList
-              offers={offers}
-              offerMouseOverHandle={handleOfferMouseOver}
-            />
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">{offersByCity.length} places to stay in {selectedCity}</b>
+              <Sorting offers={offers} />
+              <OffersList
+                offers={offersByCity}
+                offerMouseOverHandle={handleOfferMouseOver}
+              />
+            </section>
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  city={city}
-                  offers={offers}
+                  offers={offersByCity}
                   selectedOffer={selectedOffer}
                 />
               </section>
