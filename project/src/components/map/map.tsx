@@ -8,7 +8,7 @@ import { Offers, Offer } from '../../types/offers';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  offers: Offers;
+  offers: Offers | undefined;
   selectedOffer?: Offer | undefined;
 };
 
@@ -25,14 +25,14 @@ const currentCustomIcon = new Icon({
 });
 
 const Map = (props: MapProps): JSX.Element => {
-  const { offers, selectedOffer } = props;
+  const { selectedOffer, offers } = props;
   const mapRef = useRef(null);
   const selectedCity = useAppSelector((state) => state.city);
   const city = getCityData(offers, selectedCity);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
-    if (map) {
+    if (map && offers) {
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
