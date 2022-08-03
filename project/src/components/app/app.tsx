@@ -12,7 +12,7 @@ import LoadingScreen from '../loading/loading';
 
 const App = (): JSX.Element => {
 
-  const {isDataLoaded, offersByCity} = useAppSelector((state) => state);
+  const { isDataLoaded, offersByCity } = useAppSelector((state) => state);
 
   if (isDataLoaded) {
     return (

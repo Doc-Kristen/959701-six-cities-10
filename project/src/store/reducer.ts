@@ -21,7 +21,7 @@ const initialState: InitalState = {
   offersByCity: [],
   // authorizationStatus: AuthorizationStatus.Auth,
   error: null,
-  isDataLoaded: false,
+  isDataLoaded: true,
 };
 
 const reducer = createReducer(initialState, (builder) => {
