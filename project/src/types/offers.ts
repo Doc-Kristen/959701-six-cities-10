@@ -2,12 +2,12 @@ type Location = {
     latitude: number
     longitude: number
     zoom: number
-    };
+};
 
 type City = {
     name: string;
     location: Location;
-  };
+};
 
 type Offer = {
     bedrooms: number
@@ -15,10 +15,10 @@ type Offer = {
     description: string
     goods: string[]
     host: {
-    avatarUrl: string
-    id: number
-    isPro: boolean
-    name: string
+        avatarUrl: string
+        id: number
+        isPro: boolean
+        name: string
     }
     id: number
     images: string[]
@@ -31,8 +31,8 @@ type Offer = {
     rating: number
     title: string
     type: string
-    };
+};
 
 type Offers = Offer[];
 
-export type {Offer, Offers, City};
+export type { Offer, Offers, City };

@@ -6,7 +6,7 @@ import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import { Offers } from '../../types/offers';
 
 type FavoriteScreenComponentProps = {
-  offers: Offers
+  offers: Offers | undefined,
  };
 
 const FavoritesScreen = ({offers} : FavoriteScreenComponentProps): JSX.Element => (
@@ -14,7 +14,7 @@ const FavoritesScreen = ({offers} : FavoriteScreenComponentProps): JSX.Element =
     <Header />
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
-        {offers.length > 0 ?
+        { offers && offers.length > 0 ?
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">

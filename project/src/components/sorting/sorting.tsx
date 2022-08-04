@@ -1,7 +1,7 @@
 import { Offers } from '../../types/offers';
 
 type SortingProps = {
-  offers: Offers
+  offers: Offers | undefined,
 }
 
 const Sorting = ({ offers }: SortingProps): JSX.Element => (
