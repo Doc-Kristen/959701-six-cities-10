@@ -9,7 +9,7 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import RoomScreen from '../../pages/room-screen/room-screen';
 import MainEmptyScreen from '../../pages/main-empty-screen/main-empty-screen';
 import LoadingScreen from '../loading/loading';
-import { mockOffer, mockReviews } from '../../mock';
+import { mockReviews } from '../../mock';
 
 const App = (): JSX.Element => {
 
@@ -50,7 +50,6 @@ const App = (): JSX.Element => {
           path={AppRoute.Room}
           element={
             <RoomScreen
-              offer={mockOffer}
               reviews={mockReviews}
             />
           }

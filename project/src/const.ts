@@ -24,17 +24,13 @@ enum APIRoute {
     Logout = '/logout',
 }
 
-const OffersClasses = {
-  offer: {
-    citiesCard: 'cities__card place-card',
-    nearPlacesCard: 'near-places__card place-card',
-  },
-  offersList: {
-    citiesPlaces: 'cities__places-list places__list tabs__content',
-    nearPlaces: 'near-places__list places__list'
-  }
-};
+enum PlaceCardClass {
+    PlaceCardClass = 'cities__card place-card',
+    NearPlacesCardClass = 'near-places__card place-card',
+    PlacesCardListClass = 'cities__places-list places__list tabs__content',
+    NearPlacesCardListClass = 'near-places__list places__list',
+}
 
 const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export { AppRoute, APIRoute, AuthorizationStatus, URL_MARKER_CURRENT, URL_MARKER_DEFAULT, TIMEOUT_SHOW_ERROR, cities, OffersClasses };
+export { AppRoute, APIRoute, AuthorizationStatus, URL_MARKER_CURRENT, URL_MARKER_DEFAULT, TIMEOUT_SHOW_ERROR, cities, PlaceCardClass };

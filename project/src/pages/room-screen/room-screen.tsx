@@ -5,21 +5,25 @@ import ReviewForm from '../../components/review-form/review-form';
 import { Reviews } from '../../types/reviews';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
-import { OffersClasses } from '../../const';
+import { PlaceCardClass } from '../../const';
 import { Offer } from '../../types/offers';
+import { useLocation } from 'react-router-dom';
 
 type RoomScreenProps = {
   reviews: Reviews,
-  offer: Offer
 }
 
-const RoomScreen = ({ reviews, offer }: RoomScreenProps): JSX.Element => {
+const RoomScreen = ({ reviews }: RoomScreenProps): JSX.Element => {
 
-  // Офферы  для Map, OfffersList взяты временно, в качестве примера. Позже исправлю, данные придут с сервера
+  const location = useLocation();
+
+  const urlId = Number(location.pathname.split('/').slice(-1));
 
   const { offersByCity } = useAppSelector((state) => state);
 
-  const mockOffers = offersByCity?.slice(0, 3);
+  const offer: Offer | undefined = offersByCity && offersByCity.find((offerByCity) => offerByCity.id === urlId);
+
+  const offerNeighbourhood = offersByCity?.slice(0, 3);
 
   return (
     <div className="page">
@@ -28,7 +32,7 @@ const RoomScreen = ({ reviews, offer }: RoomScreenProps): JSX.Element => {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.map((image) => (
+              {offer && offer.images.map((image) => (
                 <div className="property__image-wrapper" key={image}>
                   <img className="property__image" src={image} alt="  studio" />
                 </div>
@@ -37,13 +41,13 @@ const RoomScreen = ({ reviews, offer }: RoomScreenProps): JSX.Element => {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offer.isPremium ?
+              {offer && offer.isPremium ?
                 <div className="property__mark">
                   <span>Premium</span>
                 </div> : null}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {offer.title}
+                  {offer && offer.title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -61,24 +65,24 @@ const RoomScreen = ({ reviews, offer }: RoomScreenProps): JSX.Element => {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {offer.type}
+                  {offer && offer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {offer.bedrooms} Bedrooms
+                  {offer && offer.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {offer.maxAdults} adults
+                  Max {offer && offer.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{offer.price}</b>
+                <b className="property__price-value">&euro;{offer && offer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {
-                    offer.goods.map((good) => (
+                    offer && offer.goods.map((good) => (
                       <li className="property__inside-item" key={good}>
                         {good}
                       </li>
@@ -90,18 +94,18 @@ const RoomScreen = ({ reviews, offer }: RoomScreenProps): JSX.Element => {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={offer && offer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    {offer.host.name}
+                    {offer && offer.host.name}
                   </span>
                   <span className="property__user-status">
-                    {offer.host.isPro ? 'Pro' : null}
+                    {offer && offer.host.isPro ? 'Pro' : null}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {offer.description}
+                    {offer && offer.description}
                   </p>
                 </div>
               </div>
@@ -119,7 +123,8 @@ const RoomScreen = ({ reviews, offer }: RoomScreenProps): JSX.Element => {
           </div>
           <section className="property__map map">
             <Map
-              offers={mockOffers}
+              selectedOffer={offer}
+              offers={offerNeighbourhood}
             />
           </section>
         </section>
@@ -128,9 +133,9 @@ const RoomScreen = ({ reviews, offer }: RoomScreenProps): JSX.Element => {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               <OffersList
-                offers={mockOffers}
-                offersListClass={OffersClasses.offersList.nearPlaces}
-                offerClass={OffersClasses.offer.nearPlacesCard}
+                offers={offerNeighbourhood}
+                offersListClass={PlaceCardClass.NearPlacesCardListClass}
+                offerClass={PlaceCardClass.NearPlacesCardClass}
               />
             </div>
           </section>

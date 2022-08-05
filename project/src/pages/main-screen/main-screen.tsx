@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { cities } from '../../const';
 import { useAppSelector } from '../../hooks';
 import Sorting from '../../components/sorting/sorting';
-import { OffersClasses } from '../../const';
+import { PlaceCardClass } from '../../const';
 
 const MainScreen = (): JSX.Element => {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
@@ -38,8 +38,8 @@ const MainScreen = (): JSX.Element => {
               <Sorting offers={offersByCity} />
               <OffersList
                 offers={offersByCity}
-                offersListClass={OffersClasses.offersList.citiesPlaces}
-                offerClass={OffersClasses.offer.citiesCard}
+                offersListClass={PlaceCardClass.PlacesCardListClass}
+                offerClass={PlaceCardClass.PlaceCardClass}
                 offerMouseOverHandle={handleOfferMouseOver}
               />
             </section>
