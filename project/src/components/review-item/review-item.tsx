@@ -1,7 +1,5 @@
-// import { Link } from 'react-router-dom';
 import { Review } from '../../types/reviews';
 import { humanizeHeaderDueDate } from '../../utils';
-// import { AppRoute } from '../../const';
 
 type ReviewItemProps = {
   review: Review,
