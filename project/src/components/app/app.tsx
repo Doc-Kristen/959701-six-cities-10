@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { Offers } from '../../types/offers';
+import { useAppSelector } from '../../hooks';
 import PrivateRoute from '../private-route/private-route';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -8,14 +8,18 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import RoomScreen from '../../pages/room-screen/room-screen';
 import MainEmptyScreen from '../../pages/main-empty-screen/main-empty-screen';
-import { useAppSelector } from '../../hooks';
+import LoadingScreen from '../loading/loading';
+import { mockOffer, mockReviews } from '../../mock';
 
-type AppProps = {
-  offers: Offers,
-}
+const App = (): JSX.Element => {
 
-const App = ({ offers }: AppProps): JSX.Element => {
-  const offersByCity = useAppSelector((state) => state.offers);
+  const { isDataLoaded, offersByCity } = useAppSelector((state) => state);
+
+  if (isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <BrowserRouter>
@@ -23,11 +27,7 @@ const App = ({ offers }: AppProps): JSX.Element => {
         <Route
           path={AppRoute.Main}
           element={
-            offersByCity.length > 0 ?
-              <MainScreen
-                offers={offersByCity}
-              />
-              : <MainEmptyScreen />
+            offersByCity && offersByCity.length ? <MainScreen /> : <MainEmptyScreen />
           }
         />
         <Route
@@ -41,14 +41,19 @@ const App = ({ offers }: AppProps): JSX.Element => {
               authorizationStatus={AuthorizationStatus.NoAuth}
             >
               <FavoritesScreen
-                offers={offers}
+                offers={offersByCity}
               />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Room}
-          element={<RoomScreen />}
+          element={
+            <RoomScreen
+              offer={mockOffer}
+              reviews={mockReviews}
+            />
+          }
         />
         <Route
           path="*"

@@ -8,11 +8,11 @@ const ReviewForm = (): JSX.Element => {
 
   const radioChangeHandle = (evt: React.ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
-    setFormData({...formData, rating: evt.target.value});
+    setFormData({ ...formData, rating: evt.target.value });
   };
 
   const textAreaChangeHandle = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData({...formData, comment: evt.target.value});
+    setFormData({ ...formData, comment: evt.target.value });
   };
 
   return (
@@ -63,7 +63,7 @@ const ReviewForm = (): JSX.Element => {
       />
       <div className='reviews__button-wrapper'>
         <p className='reviews__help'>
-            To submit review please make sure to set <span className='reviews__star'>rating</span> and describe your stay with at least <b className='reviews__text-amount'>50 characters</b>.
+          To submit review please make sure to set <span className='reviews__star'>rating</span> and describe your stay with at least <b className='reviews__text-amount'>50 characters</b>.
         </p>
         <button className='reviews__submit form__submit button' type='submit' disabled>Submit</button>
       </div>

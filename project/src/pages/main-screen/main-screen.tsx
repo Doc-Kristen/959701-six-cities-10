@@ -2,25 +2,21 @@ import Map from '../../components/map/map';
 import Header from '../../components/header/header';
 import Filter from '../../components/filter/filter';
 import OffersList from '../../components/offers-list/offers-list';
-import { Offers, Offer } from '../../types/offers';
+import { Offer } from '../../types/offers';
 import { useState } from 'react';
 import { cities } from '../../const';
 import { useAppSelector } from '../../hooks';
 import Sorting from '../../components/sorting/sorting';
+import { OffersClasses } from '../../const';
 
-type MainScreenProps = {
-  offers: Offers
-}
-
-const MainScreen = ({ offers }: MainScreenProps): JSX.Element => {
+const MainScreen = (): JSX.Element => {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
   );
+  const { offersByCity, city, offers } = useAppSelector((state) => state);
 
-  const offersByCity = useAppSelector((state) => state.offers);
-  const selectedCity = useAppSelector((state) => state.city);
-  const handleOfferMouseOver = (id: number) => {
-    const currentOffer = offers.find((offer) => offer.id === id);
+  const handleOfferMouseOver = (id: number | undefined) => {
+    const currentOffer = offers && offers.find((offer) => offer.id === id);
     setSelectedOffer(currentOffer);
   };
 
@@ -38,10 +34,12 @@ const MainScreen = ({ offers }: MainScreenProps): JSX.Element => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersByCity.length} places to stay in {selectedCity}</b>
-              <Sorting offers={offers} />
+              <b className="places__found">{offersByCity && offersByCity.length} places to stay in {city}</b>
+              <Sorting offers={offersByCity} />
               <OffersList
                 offers={offersByCity}
+                offersListClass={OffersClasses.offersList.citiesPlaces}
+                offerClass={OffersClasses.offer.citiesCard}
                 offerMouseOverHandle={handleOfferMouseOver}
               />
             </section>
