@@ -1,24 +1,24 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offers';
-import { AppRoute } from '../../const';
 
 type OfferCardProps = {
   offer: Offer,
-  offerMouseOverHandle: (id: number) => void;
+  offerClass: string,
+  offerMouseOverHandle?: (id: number | undefined) => void;
 }
 
-const OfferCard = ({ offer, offerMouseOverHandle }: OfferCardProps): JSX.Element => {
+const OfferCard = ({ offer, offerMouseOverHandle, offerClass }: OfferCardProps): JSX.Element => {
   const maxRating = 5;
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
 
   return (
-    <article className="cities__card place-card" onMouseOver={() => offerMouseOverHandle(offer.id)}>
+    <article className={offerClass} onMouseOver={() => offerMouseOverHandle && offerMouseOverHandle(offer.id)}>
       {offer.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
         </div> : null}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Room}>
+        <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage}
             width="260"
             height="200"
@@ -53,7 +53,7 @@ const OfferCard = ({ offer, offerMouseOverHandle }: OfferCardProps): JSX.Element
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Room}>
+          <Link to={`/offer/${offer.id}`}>
             {offer.title}
           </Link>
         </h2>

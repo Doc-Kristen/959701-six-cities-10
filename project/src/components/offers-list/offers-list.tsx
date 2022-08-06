@@ -3,15 +3,18 @@ import OfferCard from '../offer-card/offer-card';
 
 type OffersListProps = {
   offers: Offers | undefined,
-  offerMouseOverHandle: (id: number) => void;
+  offerMouseOverHandle?: (id: number | undefined) => void,
+  offersListClass: string,
+  offerClass: string,
 }
 
-const OffersList = ({ offers, offerMouseOverHandle }: OffersListProps): JSX.Element => (
+const OffersList = ({ offers, offerMouseOverHandle, offersListClass, offerClass }: OffersListProps): JSX.Element => (
 
-  <div className="cities__places-list places__list tabs__content">
+  <div className={offersListClass}>
     {offers && offers.map((offer) => (
       <OfferCard key={offer.id}
         offer={offer}
+        offerClass={offerClass}
         offerMouseOverHandle={offerMouseOverHandle}
       />
     ))}

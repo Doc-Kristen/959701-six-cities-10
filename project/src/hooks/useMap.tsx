@@ -16,7 +16,7 @@ const useMap = (
           lat: city.location.latitude,
           lng: city.location.longitude,
         },
-        zoom: city.location.zoom
+        zoom: city.location.zoom,
       });
 
       const layer = new TileLayer(
@@ -26,6 +26,16 @@ const useMap = (
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
         }
       );
+
+      instance.scrollWheelZoom.disable();
+      instance.on('click', () => {
+        if (!instance.scrollWheelZoom.enabled()) {
+          instance.scrollWheelZoom.enable();
+        }
+      });
+      instance.on('mouseout', () => {
+        instance.scrollWheelZoom.disable();
+      });
 
       instance.addLayer(layer);
 
