@@ -5,37 +5,41 @@ const URL_MARKER_DEFAULT = 'img/pin.svg';
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 enum AppRoute {
-    Main = '/',
-    Login = '/login',
-    Favorites = '/favorites',
-    Room = '/offer/:id'
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Room = '/offer/:id'
 }
 
 enum AuthorizationStatus {
-    Auth = 'AUTH',
-    NoAuth = 'NO_AUTH',
-    Unknown = 'UNKNOWN',
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }
 
 enum APIRoute {
-    Offers = '/hotels',
-    Review = '/comments',
-    Login = '/login',
-    Logout = '/logout',
+  Offers = '/hotels',
+  Review = '/comments',
+  Login = '/login',
+  Logout = '/logout',
 }
 
-enum PlaceCardClass {
-    PlaceCardClass = 'cities__card place-card',
-    NearPlacesCardClass = 'near-places__card place-card',
-    PlacesCardListClass = 'cities__places-list places__list tabs__content',
-    NearPlacesCardListClass = 'near-places__list places__list',
-}
+const ClassNameCardType = {
+  'places': {
+    card: 'cities__card',
+    list: 'cities__places-list',
+  },
+  'near-places': {
+    card: 'near-places__card',
+    list: 'near-places__list',
+  }
+} as const;
 
 enum SortingType {
-    Popular = 'Popular',
-    LowToHigh = 'Price: low to high',
-    HighToLow = 'Price: high to low',
-    TopRatedFirst = 'Top rated first',
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
 }
 
 const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
@@ -48,6 +52,6 @@ export {
   URL_MARKER_DEFAULT,
   TIMEOUT_SHOW_ERROR,
   cities,
-  PlaceCardClass,
-  SortingType
+  SortingType,
+  ClassNameCardType
 };
