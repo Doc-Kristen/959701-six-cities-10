@@ -31,6 +31,13 @@ enum PlaceCardClass {
     NearPlacesCardListClass = 'near-places__list places__list',
 }
 
+enum SortingType {
+    Popular = 'Popular',
+    LowToHigh = 'Price: low to high',
+    HighToLow = 'Price: high to low',
+    TopRatedFirst = 'Top rated first',
+}
+
 const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export { AppRoute, APIRoute, AuthorizationStatus, URL_MARKER_CURRENT, URL_MARKER_DEFAULT, TIMEOUT_SHOW_ERROR, cities, PlaceCardClass };
+export { AppRoute, APIRoute, AuthorizationStatus, URL_MARKER_CURRENT, URL_MARKER_DEFAULT, TIMEOUT_SHOW_ERROR, cities, PlaceCardClass, SortingType };

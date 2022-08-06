@@ -35,7 +35,7 @@ const MainScreen = (): JSX.Element => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersByCity && offersByCity.length} places to stay in {city}</b>
-              <Sorting offers={offersByCity} />
+              <Sorting />
               <OffersList
                 offers={offersByCity}
                 offersListClass={PlaceCardClass.PlacesCardListClass}
