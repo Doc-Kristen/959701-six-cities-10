@@ -1,8 +1,8 @@
 const TIMEOUT_SHOW_ERROR = 2000;
 
-const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+const URL_MARKER_DEFAULT = 'img/pin.svg';
 
-const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 enum AppRoute {
     Main = '/',
