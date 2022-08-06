@@ -26,4 +26,11 @@ const sortPriceDown = (offerA: Offer, offerB: Offer) => getWeightForPriceDown(of
 const sortPriceUp = (offerA: Offer, offerB: Offer) => getWeightForPriceUp(offerA.price, offerB.price);
 const sortTopRatedFirst = (offerA: Offer, offerB: Offer) => getWeightForTopRatedFirst(offerA.rating, offerB.rating);
 
-export { getOffersByCity, getCityData, humanizeHeaderDueDate, sortPriceDown, sortPriceUp, sortTopRatedFirst };
+export {
+  getOffersByCity,
+  getCityData,
+  humanizeHeaderDueDate,
+  sortPriceDown,
+  sortPriceUp,
+  sortTopRatedFirst
+};

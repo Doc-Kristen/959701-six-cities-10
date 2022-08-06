@@ -40,4 +40,14 @@ enum SortingType {
 
 const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export { AppRoute, APIRoute, AuthorizationStatus, URL_MARKER_CURRENT, URL_MARKER_DEFAULT, TIMEOUT_SHOW_ERROR, cities, PlaceCardClass, SortingType };
+export {
+  AppRoute,
+  APIRoute,
+  AuthorizationStatus,
+  URL_MARKER_CURRENT,
+  URL_MARKER_DEFAULT,
+  TIMEOUT_SHOW_ERROR,
+  cities,
+  PlaceCardClass,
+  SortingType
+};
