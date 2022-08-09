@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../../components/logo/logo';
-import {useRef, FormEvent} from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useRef, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
@@ -28,7 +28,7 @@ const LoginScreen = (): JSX.Element => {
       navigate(AppRoute.Main);
     }
   };
-  return(
+  return (
     <div className="page page--gray page--login">
       <header className="header">
         <div className="container">

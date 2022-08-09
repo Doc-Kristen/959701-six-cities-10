@@ -6,7 +6,7 @@ import { AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
 
 const Header = (): JSX.Element => {
-  const { authorizationStatus } = useAppSelector((state) => state);
+  const { authorizationStatus, userData } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   return (
     <header className="header">
@@ -19,9 +19,15 @@ const Header = (): JSX.Element => {
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
                     <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                      <div className="header__avatar-wrapper user__avatar-wrapper">
+                        <img src={userData?.avatarUrl}
+                          style={{ 'borderRadius': '100px' }}
+                          alt='User avatar'
+                        >
+                        </img>
+                      </div>
                       <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                        {userData?.name}
                       </span>
                       <span className="header__favorite-count">3</span>
                     </Link>
