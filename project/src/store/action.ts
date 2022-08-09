@@ -6,7 +6,6 @@ const Action = {
   FILTER_OFFERS: 'FILTER_OFFERS',
   LOAD_OFFERS: 'LOAD_OFFERS',
   REQUIRE_AUTHORIZATION: 'REQUIRE_AUTHORIZATION',
-  SET_ERROR: 'SET_ERROR',
   SORT_OFFERS: 'SORT_OFFERS',
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE'
 };
@@ -25,11 +24,6 @@ const loadOffers = createAction(Action.LOAD_OFFERS, (value) => (
   }));
 
 const requireAuthorization = createAction(Action.REQUIRE_AUTHORIZATION, (value) => (
-  {
-    payload: value,
-  }));
-
-const setError = createAction(Action.SET_ERROR, (value) => (
   {
     payload: value,
   }));
@@ -54,7 +48,6 @@ export {
   filterOffers,
   loadOffers,
   requireAuthorization,
-  setError,
   setDataLoadedStatus,
   sortOffers,
   redirectToRoute };
