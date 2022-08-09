@@ -7,7 +7,8 @@ const Action = {
   LOAD_OFFERS: 'LOAD_OFFERS',
   REQUIRE_AUTHORIZATION: 'REQUIRE_AUTHORIZATION',
   SET_ERROR: 'SET_ERROR',
-  SORT_OFFERS: 'SORT_OFFERS'
+  SORT_OFFERS: 'SORT_OFFERS',
+  REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE'
 };
 
 const selectCity = createAction(Action.SELECT_CITY, (value) => (
@@ -43,4 +44,17 @@ const sortOffers = createAction(Action.SORT_OFFERS, (value) => (
     payload: value,
   }));
 
-export { selectCity, filterOffers, loadOffers, requireAuthorization, setError, setDataLoadedStatus, sortOffers };
+const redirectToRoute = createAction(Action.REDIRECT_TO_ROUTE, (value) => (
+  {
+    payload: value,
+  }));
+
+export {
+  selectCity,
+  filterOffers,
+  loadOffers,
+  requireAuthorization,
+  setError,
+  setDataLoadedStatus,
+  sortOffers,
+  redirectToRoute };

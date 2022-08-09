@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { Route, Routes } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
 import PrivateRoute from '../private-route/private-route';
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -10,10 +10,12 @@ import RoomScreen from '../../pages/room-screen/room-screen';
 import MainEmptyScreen from '../../pages/main-empty-screen/main-empty-screen';
 import LoadingScreen from '../loading/loading';
 import { mockReviews } from '../../mock';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../browser-history';
 
 const App = (): JSX.Element => {
 
-  const { isDataLoaded, offersByCity } = useAppSelector((state) => state);
+  const { isDataLoaded, offersByCity, authorizationStatus } = useAppSelector((state) => state);
 
   if (isDataLoaded) {
     return (
@@ -22,7 +24,7 @@ const App = (): JSX.Element => {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -38,7 +40,7 @@ const App = (): JSX.Element => {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={authorizationStatus}
             >
               <FavoritesScreen
                 offers={offersByCity}
@@ -59,7 +61,7 @@ const App = (): JSX.Element => {
           element={<NotFoundScreen />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };
 export default App;
