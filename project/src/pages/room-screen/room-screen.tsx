@@ -5,7 +5,6 @@ import ReviewForm from '../../components/review-form/review-form';
 import { Reviews } from '../../types/reviews';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
-import { PlaceCardClass } from '../../const';
 import { Offer } from '../../types/offers';
 import { useLocation } from 'react-router-dom';
 
@@ -131,13 +130,10 @@ const RoomScreen = ({ reviews }: RoomScreenProps): JSX.Element => {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              <OffersList
-                offers={offerNeighbourhood}
-                offersListClass={PlaceCardClass.NearPlacesCardListClass}
-                offerClass={PlaceCardClass.NearPlacesCardClass}
-              />
-            </div>
+            <OffersList
+              offers={offerNeighbourhood}
+              cardType={'near-places'}
+            />
           </section>
         </div>
       </main>
@@ -146,4 +142,3 @@ const RoomScreen = ({ reviews }: RoomScreenProps): JSX.Element => {
 };
 
 export default RoomScreen;
-

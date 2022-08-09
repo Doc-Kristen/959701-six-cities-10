@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offers';
+import { ClassNameCardType } from '../../const';
+import { ClassNameCard, Offer } from '../../types/offers';
 
 type OfferCardProps = {
   offer: Offer,
-  offerClass: string,
+  cardType: ClassNameCard;
   offerMouseOverHandle?: (id: number | undefined) => void;
 }
 
-const OfferCard = ({ offer, offerMouseOverHandle, offerClass }: OfferCardProps): JSX.Element => {
+const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): JSX.Element => {
   const maxRating = 5;
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
 
   return (
-    <article className={offerClass} onMouseOver={() => offerMouseOverHandle && offerMouseOverHandle(offer.id)}>
+    <article
+      className={`${ClassNameCardType[cardType].card} place-card`}
+      onMouseOver={() => offerMouseOverHandle && offerMouseOverHandle(offer.id)}
+    >
       {offer.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
