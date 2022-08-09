@@ -14,7 +14,6 @@ type InitalState = {
   error: string | null,
   isDataLoaded: boolean,
   sortingType: string,
-  IsSortingListOpen: boolean
 }
 
 const initialState: InitalState = {
@@ -25,7 +24,6 @@ const initialState: InitalState = {
   error: null,
   isDataLoaded: true,
   sortingType: SortingType.Popular,
-  IsSortingListOpen: false
 };
 
 const reducer = createReducer(initialState, (builder) => {

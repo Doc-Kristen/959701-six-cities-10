@@ -12,9 +12,7 @@ const Sorting = (): JSX.Element => {
   const { sortingType } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  const handleSortingClick = () => {
-    setIsSortingListOpen(() => !IsSortingListOpen);
-  };
+  const handleSortingClick = () => setIsSortingListOpen(!IsSortingListOpen);
 
   const styleSortingIcon = IsSortingListOpen ? 'rotate(180deg) translateY(50%)' : 'rotate(0deg) translateY(-50%)';
 
