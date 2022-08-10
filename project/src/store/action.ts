@@ -50,6 +50,7 @@ const getUserData = createAction(Action.GET_USER_DATA, (value) => (
   }));
 
 export {
+  Action,
   selectCity,
   filterOffers,
   loadOffers,
