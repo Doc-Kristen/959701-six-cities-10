@@ -1,5 +1,3 @@
-const TIMEOUT_SHOW_ERROR = 2000;
-
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
@@ -50,7 +48,6 @@ export {
   AuthorizationStatus,
   URL_MARKER_CURRENT,
   URL_MARKER_DEFAULT,
-  TIMEOUT_SHOW_ERROR,
   cities,
   SortingType,
   ClassNameCardType
