@@ -6,7 +6,8 @@ enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Room = '/offer/:id'
+  Room = '/offer/:id',
+  NotFound = '*'
 }
 
 enum AuthorizationStatus {
@@ -17,7 +18,7 @@ enum AuthorizationStatus {
 
 enum APIRoute {
   Offers = '/hotels',
-  Review = '/comments',
+  Reviews = '/comments',
   Login = '/login',
   Logout = '/logout',
 }

@@ -8,7 +8,10 @@ const Action = {
   REQUIRE_AUTHORIZATION: 'REQUIRE_AUTHORIZATION',
   SORT_OFFERS: 'SORT_OFFERS',
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
-  GET_USER_DATA: 'GET_USER_DATA'
+  SET_SELECTED_OFFER: 'SET_SELECTED_OFFER',
+  SET_USER_DATA: 'SET_USER_DATA',
+  SET_REVIEWS: 'SET_REVIEWS',
+  SET_NEAR_OFFERS: 'SET_NEAR_OFFERS',
 };
 
 const selectCity = createAction(Action.SELECT_CITY, (value) => (
@@ -44,7 +47,22 @@ const redirectToRoute = createAction(Action.REDIRECT_TO_ROUTE, (value) => (
     payload: value,
   }));
 
-const getUserData = createAction(Action.GET_USER_DATA, (value) => (
+const setUserData = createAction(Action.SET_USER_DATA, (value) => (
+  {
+    payload: value,
+  }));
+
+const setSelectedOffer = createAction(Action.SET_SELECTED_OFFER, (value) => (
+  {
+    payload: value,
+  }));
+
+const setReviews = createAction(Action.SET_REVIEWS, (value) => (
+  {
+    payload: value,
+  }));
+
+const setNearOffers = createAction(Action.SET_NEAR_OFFERS, (value) => (
   {
     payload: value,
   }));
@@ -58,5 +76,8 @@ export {
   setDataLoadedStatus,
   sortOffers,
   redirectToRoute,
-  getUserData
+  setUserData,
+  setSelectedOffer,
+  setReviews,
+  setNearOffers
 };

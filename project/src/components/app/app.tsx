@@ -9,7 +9,6 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import RoomScreen from '../../pages/room-screen/room-screen';
 import MainEmptyScreen from '../../pages/main-empty-screen/main-empty-screen';
 import LoadingScreen from '../loading/loading';
-import { mockReviews } from '../../mock';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 
@@ -51,9 +50,7 @@ const App = (): JSX.Element => {
         <Route
           path={AppRoute.Room}
           element={
-            <RoomScreen
-              reviews={mockReviews}
-            />
+            <RoomScreen/>
           }
         />
         <Route
