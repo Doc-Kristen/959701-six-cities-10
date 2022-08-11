@@ -18,7 +18,7 @@ type InitalState = {
   userData: UserData | null,
   selectedOffer: Offer | undefined,
   reviews: Reviews | undefined,
-  nearOffers: Offers | undefined,
+  nearOffers: Offers,
 }
 
 const initialState: InitalState = {

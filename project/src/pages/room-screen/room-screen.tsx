@@ -109,7 +109,7 @@ const RoomScreen = (): JSX.Element => {
           <section className="property__map map">
             <Map
               selectedOffer={selectedOffer}
-              offers={nearOffers}
+              offers={selectedOffer && [...nearOffers, selectedOffer]}
             />
           </section>
         </section>
