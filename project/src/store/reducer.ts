@@ -17,7 +17,7 @@ type InitalState = {
   sortingType: string,
   userData: UserData | null,
   selectedOffer: Offer | undefined,
-  reviews: Reviews | undefined,
+  reviews: Reviews,
   nearOffers: Offers,
 }
 

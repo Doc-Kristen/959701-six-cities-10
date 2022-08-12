@@ -14,7 +14,7 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): J
   const maxRating = 5;
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
   const dispatch = useAppDispatch();
-  const onSubmit = (offerId: number) => {
+  const offerClickHandle = (offerId: number) => {
     dispatch(fetchSelectedOfferAction(offerId));
     dispatch(fetchReviewsAction(offerId));
     dispatch(fetchNearOffersAction(offerId));
@@ -25,7 +25,7 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): J
       onMouseOver={() => offerMouseOverHandle && offerMouseOverHandle(offer.id)}
       onClick={(evt) => {
         evt.preventDefault();
-        onSubmit(offer.id);
+        offerClickHandle(offer.id);
       }}
     >
       {offer.isPremium ?
