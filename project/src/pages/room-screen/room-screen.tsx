@@ -4,11 +4,12 @@ import ReviewList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
+import { AuthorizationStatus } from '../../const';
 
 
 const RoomScreen = (): JSX.Element => {
 
-  const { selectedOffer, reviews, nearOffers } = useAppSelector((state) => state);
+  const { selectedOffer, reviews, nearOffers, authorizationStatus } = useAppSelector((state) => state);
 
   return (
     <div className="page">
@@ -102,7 +103,7 @@ const RoomScreen = (): JSX.Element => {
                 <ReviewList
                   reviews={reviews}
                 />
-                <ReviewForm />
+                {authorizationStatus === AuthorizationStatus.Auth ? <ReviewForm /> : null}
               </section>
             </div>
           </div>
