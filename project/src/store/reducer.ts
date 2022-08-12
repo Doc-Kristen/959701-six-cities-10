@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { selectCity, filterOffers, loadOffers, requireAuthorization, setDataLoadedStatus, sortOffers, setUserData, setSelectedOffer, setReviews, setNearOffers } from './action';
-import { getOffersByCity, sortPriceDown, sortPriceUp, sortTopRatedFirst } from '../utils';
+import { getOffersByCity, sortPriceDown, sortPriceUp, sortTopRatedFirst, sortReviewsDayDown } from '../utils';
 import { SortingType, AuthorizationStatus } from '../const';
 import { Offer, Offers } from '../types/offers';
 import { UserData } from '../types/user-data';
@@ -78,7 +78,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.selectedOffer = action.payload;
     })
     .addCase(setReviews, (state, action) => {
-      state.reviews = action.payload;
+      state.reviews = action.payload.sort(sortReviewsDayDown);
     })
     .addCase(setNearOffers, (state, action) => {
       state.nearOffers = action.payload;
