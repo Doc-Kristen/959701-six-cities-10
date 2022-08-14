@@ -6,11 +6,6 @@ type User = {
     name: string
 };
 
-type Comment = {
-    comment: string
-    rating: number
-}
-
 type Review = {
     comment: string
     rating: number
@@ -21,4 +16,4 @@ type Review = {
 
 type Reviews = Review[];
 
-export type { Review, Comment, Reviews };
+export type { Review, Reviews };

@@ -2,6 +2,10 @@ const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
+const MIN_COMMENT_LENGTH = 50;
+
+const MAX_COMMENT_LENGTH = 300;
+
 enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -51,5 +55,7 @@ export {
   URL_MARKER_DEFAULT,
   cities,
   SortingType,
-  ClassNameCardType
+  ClassNameCardType,
+  MIN_COMMENT_LENGTH,
+  MAX_COMMENT_LENGTH
 };

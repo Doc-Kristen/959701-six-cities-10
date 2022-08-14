@@ -6,7 +6,6 @@ import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import { AuthorizationStatus } from '../../const';
 
-
 const RoomScreen = (): JSX.Element => {
 
   const { selectedOffer, reviews, nearOffers, authorizationStatus } = useAppSelector((state) => state);
