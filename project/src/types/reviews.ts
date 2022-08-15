@@ -1,3 +1,4 @@
+
 type User = {
     avatarUrl: string
     id: number
@@ -7,9 +8,9 @@ type User = {
 
 type Review = {
     comment: string
+    rating: number
     date: string
     id: number
-    rating: number
     user: User
 };
 
