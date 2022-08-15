@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, APIRoute } from '../../const';
 import { api } from '../../store';
 import { setReviews } from '../../store/action';
+import { toast } from 'react-toastify';
+import '../review-form/review-form.css';
 
 const ReviewForm = (): JSX.Element => {
 
@@ -24,6 +26,8 @@ const ReviewForm = (): JSX.Element => {
 
   const [isTextAreaDisabled, setIsFormDisabled] = useState(false);
 
+  const [formClassName, setFormClassName] = useState('reviews__form form');
+
   const radioChangeHandle = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, rating: Number(evt.target.value) });
   };
@@ -42,6 +46,7 @@ const ReviewForm = (): JSX.Element => {
 
   const sendReview = async () => {
     try {
+      setFormClassName('reviews__form form');
       setButtonIsDisabled(true);
       setIsFormDisabled(true);
       const { data } = await api.post(`${APIRoute.Reviews}/${urlId}`,
@@ -50,6 +55,8 @@ const ReviewForm = (): JSX.Element => {
       dispatch(setReviews(data));
       setFormData(formContentDefault);
     } catch {
+      setFormClassName('reviews__form form elem');
+      toast.warn('The comment has not been sent. Please, try again later.');
       setButtonIsDisabled(false);
       setIsFormDisabled(false);
     }
@@ -62,7 +69,7 @@ const ReviewForm = (): JSX.Element => {
 
   return (
     <form
-      className='reviews__form form'
+      className={formClassName}
       action='#'
       method='post'
       onChange={formChangeHandle}
