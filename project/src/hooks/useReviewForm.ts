@@ -25,7 +25,7 @@ export const useReviewForm = (formContentDefault: UserReview, urlId: number): Re
 
   const [isButtonDisabled, setButtonIsDisabled] = useState(true);
 
-  const [isTextAreaDisabled, setIsFormDisabled] = useState(false);
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
 
   const [formClassName, setFormClassName] = useState('reviews__form form');
 
@@ -70,5 +70,5 @@ export const useReviewForm = (formContentDefault: UserReview, urlId: number): Re
     }
   };
 
-  return [formData, formClassName, isButtonDisabled, isTextAreaDisabled, formSubmitHandle, radioChangeHandle, textAreaChangeHandle, formChangeHandle];
+  return [formData, formClassName, isButtonDisabled, isFormDisabled, formSubmitHandle, radioChangeHandle, textAreaChangeHandle, formChangeHandle];
 };

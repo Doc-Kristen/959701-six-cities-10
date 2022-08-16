@@ -47,6 +47,30 @@ enum SortingType {
 
 const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
+const ratingValues =
+  [
+    {
+      title: 'perfect',
+      value: 5
+    },
+    {
+      title: 'good',
+      value: 4
+    },
+    {
+      title: 'bad',
+      value: 3
+    },
+    {
+      title: 'badly',
+      value: 2
+    },
+    {
+      title: 'terribly',
+      value: 1
+    }
+  ];
+
 export {
   AppRoute,
   APIRoute,
@@ -57,5 +81,6 @@ export {
   SortingType,
   ClassNameCardType,
   MIN_COMMENT_LENGTH,
-  MAX_COMMENT_LENGTH
+  MAX_COMMENT_LENGTH,
+  ratingValues
 };
