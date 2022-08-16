@@ -1,17 +1,10 @@
-import { useState } from 'react';
-import { useAppDispatch } from '../../hooks';
 import { useLocation } from 'react-router-dom';
-import { MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH, APIRoute } from '../../const';
-import { api } from '../../store';
-import { setReviews } from '../../store/action';
-import { toast } from 'react-toastify';
+import { useReviewForm } from '../../hooks/useReviewForm';
 import '../review-form/review-form.css';
 
 const ReviewForm = (): JSX.Element => {
 
   const location = useLocation();
-
-  const dispatch = useAppDispatch();
 
   const urlId = Number(location.pathname.split('/').slice(-1));
 
@@ -20,52 +13,15 @@ const ReviewForm = (): JSX.Element => {
     comment: '',
   };
 
-  const [formData, setFormData] = useState(formContentDefault);
-
-  const [isButtonDisabled, setButtonIsDisabled] = useState(true);
-
-  const [isTextAreaDisabled, setIsFormDisabled] = useState(false);
-
-  const [formClassName, setFormClassName] = useState('reviews__form form');
-
-  const radioChangeHandle = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, rating: Number(evt.target.value) });
-  };
-
-  const textAreaChangeHandle = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData({ ...formData, comment: evt.target.value });
-  };
-
-  const formChangeHandle = () => {
-    if (formData.rating > 0 && formData.comment.length >= MIN_COMMENT_LENGTH && formData.comment.length <= MAX_COMMENT_LENGTH) {
-      setButtonIsDisabled(false);
-    } else {
-      setButtonIsDisabled(true);
-    }
-  };
-
-  const sendReview = async () => {
-    try {
-      setFormClassName('reviews__form form');
-      setButtonIsDisabled(true);
-      setIsFormDisabled(true);
-      const { data } = await api.post(`${APIRoute.Reviews}/${urlId}`,
-        formData
-      );
-      dispatch(setReviews(data));
-      setFormData(formContentDefault);
-    } catch {
-      setFormClassName('reviews__form form elem');
-      toast.warn('The comment has not been sent. Please, try again later.');
-      setButtonIsDisabled(false);
-      setIsFormDisabled(false);
-    }
-  };
-
-  const formSubmitHandle = (evt: React.MouseEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    sendReview();
-  };
+  const [
+    formData,
+    formClassName,
+    isButtonDisabled,
+    isTextAreaDisabled,
+    formSubmitHandle,
+    radioChangeHandle,
+    textAreaChangeHandle,
+    formChangeHandle] = useReviewForm(formContentDefault, urlId);
 
   return (
     <form
