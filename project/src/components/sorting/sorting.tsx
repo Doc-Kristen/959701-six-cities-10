@@ -2,7 +2,7 @@ import { SortingType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useState } from 'react';
 import { getSortingType } from '../../store/offer-process/selectors';
-import { filterOffers } from '../../store/offer-process/offer-process';
+import { selectDefaultSortyngType } from '../../store/offer-process/offer-process';
 
 const Sorting = (): JSX.Element => {
 
@@ -45,7 +45,7 @@ const Sorting = (): JSX.Element => {
                 tabIndex={0}
                 key={sortingTypeItem}
                 onClick={() => {
-                  dispatch(filterOffers(sortingTypeItem));
+                  dispatch(selectDefaultSortyngType(sortingTypeItem));
                   handleSortingClick();
                 }}
               >

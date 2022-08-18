@@ -16,10 +16,10 @@ export const offerProcess = createSlice({
     selectCity: (state, action) => {
       state.city = action.payload;
     },
-    filterOffers: (state, action) => {
+    selectDefaultSortyngType: (state, action) => {
       state.sortingType = action.payload;
     },
   },
 });
 
-export const { selectCity, filterOffers } = offerProcess.actions;
+export const { selectCity, selectDefaultSortyngType } = offerProcess.actions;

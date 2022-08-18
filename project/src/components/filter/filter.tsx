@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getSelectedCity } from '../../store/offer-process/selectors';
-import {selectCity, filterOffers} from '../../store/offer-process/offer-process';
+import { selectCity, selectDefaultSortyngType } from '../../store/offer-process/offer-process';
 import { cities, SortingType } from '../../const';
 
 const Filter = (): JSX.Element => {
@@ -21,7 +21,7 @@ const Filter = (): JSX.Element => {
                 'locations__item-link tabs__item'} to="/"
               onClick={() => {
                 dispatch(selectCity(city));
-                dispatch(filterOffers(SortingType.Popular));
+                dispatch(selectDefaultSortyngType(SortingType.Popular));
               }}
               >
                 <span>{city}</span>
