@@ -4,18 +4,20 @@ import Filter from '../../components/filter/filter';
 import OffersList from '../../components/offers-list/offers-list';
 import { Offer } from '../../types/offers';
 import { useState } from 'react';
-import { cities } from '../../const';
 import { useAppSelector } from '../../hooks';
 import Sorting from '../../components/sorting/sorting';
+import { filterOffers } from '../../store/offer-data/selectors';
+import { getSelectedCity } from '../../store/offer-process/selectors';
 
 const MainScreen = (): JSX.Element => {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
   );
-  const { offersByCity, city, offers } = useAppSelector((state) => state);
+  const city = useAppSelector(getSelectedCity);
+  const offersByCity = useAppSelector(filterOffers);
 
   const handleOfferMouseOver = (id: number | undefined) => {
-    const currentOffer = offers && offers.find((offer) => offer.id === id);
+    const currentOffer = offersByCity && offersByCity.find((offer) => offer.id === id);
     setSelectedOffer(currentOffer);
   };
 
@@ -25,9 +27,7 @@ const MainScreen = (): JSX.Element => {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Filter
-            cities={cities}
-          />
+          <Filter />
         </div>
         <div className="cities">
           <div className="cities__places-container container">

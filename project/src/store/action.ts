@@ -5,8 +5,8 @@ const Action = {
   SELECT_CITY: 'SELECT_CITY',
   FILTER_OFFERS: 'FILTER_OFFERS',
   LOAD_OFFERS: 'LOAD_OFFERS',
-  REQUIRE_AUTHORIZATION: 'REQUIRE_AUTHORIZATION',
-  SORT_OFFERS: 'SORT_OFFERS',
+  // REQUIRE_AUTHORIZATION: 'REQUIRE_AUTHORIZATION',
+  // SORT_OFFERS: 'SORT_OFFERS',
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
   SET_SELECTED_OFFER: 'SET_SELECTED_OFFER',
   SET_USER_DATA: 'SET_USER_DATA',
@@ -27,17 +27,7 @@ const loadOffers = createAction(Action.LOAD_OFFERS, (value) => (
     payload: value,
   }));
 
-const requireAuthorization = createAction(Action.REQUIRE_AUTHORIZATION, (value) => (
-  {
-    payload: value,
-  }));
-
 const setDataLoadedStatus = createAction(Action.SET_DATA_LOADED_STATUS, (value) => (
-  {
-    payload: value,
-  }));
-
-const sortOffers = createAction(Action.SORT_OFFERS, (value) => (
   {
     payload: value,
   }));
@@ -47,7 +37,7 @@ const redirectToRoute = createAction(Action.REDIRECT_TO_ROUTE, (value) => (
     payload: value,
   }));
 
-const setUserData = createAction(Action.SET_USER_DATA, (value) => (
+const getUserData = createAction(Action.SET_USER_DATA, (value) => (
   {
     payload: value,
   }));
@@ -72,11 +62,11 @@ export {
   selectCity,
   filterOffers,
   loadOffers,
-  requireAuthorization,
+  // requireAuthorization,
   setDataLoadedStatus,
-  sortOffers,
+  // sortOffers,
   redirectToRoute,
-  setUserData,
+  getUserData,
   setSelectedOffer,
   setReviews,
   setNearOffers

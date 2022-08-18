@@ -1,7 +1,8 @@
 import { SortingType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { sortOffers } from '../../store/action';
 import { useState } from 'react';
+import { getSortingType } from '../../store/offer-process/selectors';
+import { filterOffers } from '../../store/offer-process/offer-process';
 
 const Sorting = (): JSX.Element => {
 
@@ -9,7 +10,8 @@ const Sorting = (): JSX.Element => {
     false
   );
 
-  const { sortingType } = useAppSelector((state) => state);
+  const sortingType = useAppSelector(getSortingType);
+
   const dispatch = useAppDispatch();
 
   const handleSortingClick = () => setIsSortingListOpen(!IsSortingListOpen);
@@ -43,7 +45,7 @@ const Sorting = (): JSX.Element => {
                 tabIndex={0}
                 key={sortingTypeItem}
                 onClick={() => {
-                  dispatch(sortOffers(sortingTypeItem));
+                  dispatch(filterOffers(sortingTypeItem));
                   handleSortingClick();
                 }}
               >

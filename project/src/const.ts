@@ -45,6 +45,12 @@ enum SortingType {
   TopRatedFirst = 'Top rated first',
 }
 
+enum NameSpace {
+  Data = 'DATA',
+  Offer = 'OFFER',
+  User = 'USER',
+}
+
 const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 const ratingValues =
@@ -75,10 +81,11 @@ export {
   AppRoute,
   APIRoute,
   AuthorizationStatus,
+  NameSpace,
+  SortingType,
   URL_MARKER_CURRENT,
   URL_MARKER_DEFAULT,
   cities,
-  SortingType,
   ClassNameCardType,
   MIN_COMMENT_LENGTH,
   MAX_COMMENT_LENGTH,

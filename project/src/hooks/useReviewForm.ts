@@ -3,7 +3,7 @@ import { api } from '../store';
 import { toast } from 'react-toastify';
 import { APIRoute } from '../const';
 import { useAppDispatch } from '../hooks';
-import { setReviews } from '../store/action';
+import {fetchReviewsAction} from '../store/api-actions';
 import { UserReview } from '../types/reviews';
 import { MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH } from '../const';
 
@@ -34,10 +34,10 @@ export const useReviewForm = (formContentDefault: UserReview, urlId: number): Re
       setFormClassName('reviews__form form');
       setButtonIsDisabled(true);
       setIsFormDisabled(true);
-      const { data } = await api.post(`${APIRoute.Reviews}/${urlId}`,
+      await api.post(`${APIRoute.Reviews}/${urlId}`,
         formData
       );
-      dispatch(setReviews(data));
+      dispatch(fetchReviewsAction(urlId));
       setFormData(formContentDefault);
       setButtonIsDisabled(false);
       setIsFormDisabled(false);

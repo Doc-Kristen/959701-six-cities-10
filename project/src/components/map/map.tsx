@@ -5,6 +5,7 @@ import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import { getCityData } from '../../utils';
 import { useAppSelector } from '../../hooks';
 import { Offers, Offer } from '../../types/offers';
+import { getSelectedCity } from '../../store/offer-process/selectors';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
@@ -27,7 +28,7 @@ const currentCustomIcon = new Icon({
 const Map = (props: MapProps): JSX.Element => {
   const { selectedOffer, offers } = props;
   const mapRef = useRef(null);
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getSelectedCity);
   const city = getCityData(offers, selectedCity);
   const map = useMap(mapRef, city);
 

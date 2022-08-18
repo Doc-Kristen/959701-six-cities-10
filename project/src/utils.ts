@@ -1,5 +1,6 @@
 import { Offer, Offers } from './types/offers';
 import { Review } from './types/reviews';
+import { SortingType } from './const';
 import dayjs from 'dayjs';
 
 // Фильтрация офферов
@@ -28,6 +29,21 @@ const sortPriceUp = (offerA: Offer, offerB: Offer) => getWeightForPriceUp(offerA
 const sortTopRatedFirst = (offerA: Offer, offerB: Offer) => getWeightForTopRatedFirst(offerA.rating, offerB.rating);
 const sortReviewsDayDown = (reviewA: Review, reviewB: Review) => dayjs(reviewB.date).diff(dayjs(reviewA.date));
 
+const sortOffers = (offers: Offers | undefined, sortingType: string) => {
+  switch (sortingType) {
+    case SortingType.Popular:
+      return offers;
+    case SortingType.LowToHigh:
+      return offers && offers.slice().sort(sortPriceUp);
+    case SortingType.HighToLow:
+      return offers && offers.slice().sort(sortPriceDown);
+    case SortingType.TopRatedFirst:
+      return offers && offers.slice().sort(sortTopRatedFirst);
+    default:
+      return offers;
+  }
+};
+
 export {
   getOffersByCity,
   getCityData,
@@ -35,5 +51,6 @@ export {
   sortPriceDown,
   sortPriceUp,
   sortTopRatedFirst,
-  sortReviewsDayDown
+  sortReviewsDayDown,
+  sortOffers
 };
