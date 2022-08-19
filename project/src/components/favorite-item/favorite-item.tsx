@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { UseFavoriteScreen } from '../../hooks/useFavoriteScreen';
+import { UseSelectedOffer } from '../../hooks/useSelectedOffer';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 import { Offer } from '../../types/offers';
 
@@ -13,7 +13,7 @@ const FavoriteItem = ({ offer }: FavoriteItemProps): JSX.Element => {
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
 
   const [buttonClickHandle] = useFavoriteStatus(offer);
-  const [offerCardClickHandle] = UseFavoriteScreen(offer.id);
+  const [offerCardClickHandle] = UseSelectedOffer(offer.id);
 
   return (
     <li className="favorites__locations-items">
@@ -27,7 +27,10 @@ const FavoriteItem = ({ offer }: FavoriteItemProps): JSX.Element => {
       <div className="favorites__places">
         <article
           className="favorites__card place-card"
-          onClick={offerCardClickHandle}
+          onClick={(evt) => {
+            evt.preventDefault();
+            offerCardClickHandle();
+          }}
         >
           {offer.isPremium ?
             <div className="place-card__mark">

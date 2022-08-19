@@ -2,15 +2,15 @@ import { useAppDispatch } from '.';
 import { fetchNearOffersAction, fetchReviewsAction, fetchSelectedOfferAction } from '../store/api-actions';
 
 type ResultUseFavoriteScreen = [
-    changeStatusFavoriteAction: () => void,
+  changeStatusFavoriteAction: () => void,
 ];
 
-export const UseFavoriteScreen = (offerId: number): ResultUseFavoriteScreen => {
+export const UseSelectedOffer = (offerId: number): ResultUseFavoriteScreen => {
 
   const dispatch = useAppDispatch();
 
-  const offerCardClickHandle = () => {
-    dispatch(fetchSelectedOfferAction(offerId));
+  const offerCardClickHandle = async () => {
+    await dispatch(fetchSelectedOfferAction(offerId));
     dispatch(fetchReviewsAction(offerId));
     dispatch(fetchNearOffersAction(offerId));
   };

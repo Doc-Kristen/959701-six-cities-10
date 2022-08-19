@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ClassNameCardType } from '../../const';
 import { ClassNameCard, Offer } from '../../types/offers';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
-import { UseFavoriteScreen } from '../../hooks/useFavoriteScreen';
+import { UseSelectedOffer } from '../../hooks/useSelectedOffer';
 
 type OfferCardProps = {
   offer: Offer,
@@ -16,13 +16,16 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): J
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
 
   const [buttonClickHandle] = useFavoriteStatus(offer);
-  const [offerCardClickHandle] = UseFavoriteScreen(offer.id);
+  const [offerCardClickHandle] = UseSelectedOffer(offer.id);
 
   return (
     <article
       className={`${ClassNameCardType[cardType].card} place-card`}
       onMouseOver={() => offerMouseOverHandle && offerMouseOverHandle(offer.id)}
-      onClick={offerCardClickHandle}
+      onClick={(evt) => {
+        evt.preventDefault();
+        offerCardClickHandle();
+      }}
     >
       {offer.isPremium ?
         <div className="place-card__mark">
