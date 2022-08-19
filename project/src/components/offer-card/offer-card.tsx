@@ -3,6 +3,7 @@ import { ClassNameCardType } from '../../const';
 import { ClassNameCard, Offer } from '../../types/offers';
 import { fetchSelectedOfferAction, fetchReviewsAction, fetchNearOffersAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
+import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 
 type OfferCardProps = {
   offer: Offer,
@@ -11,6 +12,7 @@ type OfferCardProps = {
 }
 
 const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): JSX.Element => {
+  const [changeStatusFavoriteAction] = useFavoriteStatus(offer);
   const maxRating = 5;
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
   const dispatch = useAppDispatch();
@@ -19,6 +21,7 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): J
     dispatch(fetchReviewsAction(offerId));
     dispatch(fetchNearOffersAction(offerId));
   };
+
   return (
     <article
       className={`${ClassNameCardType[cardType].card} place-card`}
@@ -50,6 +53,7 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): J
           <button
             className={offer.isFavorite ? 'place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
+            onClick={changeStatusFavoriteAction}
           >
             <svg
               className="place-card__bookmark-icon"

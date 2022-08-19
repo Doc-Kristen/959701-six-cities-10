@@ -7,14 +7,16 @@ import OffersList from '../../components/offers-list/offers-list';
 import { AuthorizationStatus } from '../../const';
 import { getNearOffers, getReviews, getSelectedOffer } from '../../store/offer-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 
 const RoomScreen = (): JSX.Element => {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const selectedOffer = useAppSelector(getSelectedOffer);
+  const [buttonClickHandle] = useFavoriteStatus(selectedOffer);
   const reviews = useAppSelector(getReviews);
   const nearOffers = useAppSelector(getNearOffers);
-
+  const favoriteButtonStyle = selectedOffer?.isFavorite ? '#4481c3' : 'none';
   return (
     <div className="page">
       <Header />
@@ -39,11 +41,21 @@ const RoomScreen = (): JSX.Element => {
                 <h1 className="property__name">
                   {selectedOffer && selectedOffer.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
+                <button
+                  className={
+                    selectedOffer?.isFavorite ?
+                      'property__bookmark-button property__bookmark-button--active button' :
+                      'property__bookmark-button button'
+                  }
+                  type='button'
+                  onClick={buttonClickHandle}
+                >
+                  <svg
+                    style={{ fill: favoriteButtonStyle }} className='property__bookmark-icon' width='31' height='33'
+                  >
+                    <use xlinkHref='#icon-bookmark'></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
+                  <span className='visually-hidden'>To bookmarks</span>
                 </button>
               </div>
               <div className="property__rating rating">

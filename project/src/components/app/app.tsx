@@ -18,9 +18,9 @@ const App = (): JSX.Element => {
 
   const isDataLoaded = useAppSelector(getDataLoadedStatus);
 
-  const offers = useAppSelector(getOffers);
-
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  const offers = useAppSelector(getOffers);
 
   if (isDataLoaded) {
     return (

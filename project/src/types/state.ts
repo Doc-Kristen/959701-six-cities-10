@@ -14,7 +14,8 @@ export type OfferData = {
   isDataLoaded: boolean,
   selectedOffer: Offer | undefined,
   reviews: Reviews,
-  nearOffers: Offers
+  nearOffers: Offers,
+  favoritesOffers: Offers
 };
 
 export type OfferProcess = {

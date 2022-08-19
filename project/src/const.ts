@@ -25,6 +25,7 @@ enum APIRoute {
   Reviews = '/comments',
   Login = '/login',
   Logout = '/logout',
+  Favorites = '/favorite'
 }
 
 const ClassNameCardType = {

@@ -5,11 +5,13 @@ import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
+import { getFavoritesOffers } from '../../store/offer-data/selectors';
 
 const Header = (): JSX.Element => {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const userData = useAppSelector(getUserData);
+  const favoritesOffers = useAppSelector(getFavoritesOffers);
   const dispatch = useAppDispatch();
 
   return (
@@ -33,7 +35,7 @@ const Header = (): JSX.Element => {
                       <span className="header__user-name user__name">
                         {userData?.name}
                       </span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favoritesOffers.length}</span>
                     </Link>
                   </li>
                   <li className="header__nav-item">
