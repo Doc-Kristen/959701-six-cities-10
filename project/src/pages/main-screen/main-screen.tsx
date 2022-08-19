@@ -8,6 +8,7 @@ import { useAppSelector } from '../../hooks';
 import Sorting from '../../components/sorting/sorting';
 import { filterOffers } from '../../store/offer-data/selectors';
 import { getSelectedCity } from '../../store/offer-process/selectors';
+import MainEmpty from '../../components/main-empty/main-empty';
 
 const MainScreen = (): JSX.Element => {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
@@ -30,27 +31,30 @@ const MainScreen = (): JSX.Element => {
           <Filter />
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersByCity && offersByCity.length} places to stay in {city}</b>
-              <Sorting />
-              <OffersList
-                offers={offersByCity}
-                cardType={'places'}
-                offerMouseOverHandle={handleOfferMouseOver}
-              />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
+          {offersByCity && offersByCity?.length > 0 ?
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offersByCity && offersByCity.length} places to stay in {city}</b>
+                <Sorting />
+                <OffersList
                   offers={offersByCity}
-                  selectedOffer={selectedOffer}
+                  cardType={'places'}
+                  offerMouseOverHandle={handleOfferMouseOver}
                 />
               </section>
-            </div>
-          </div>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    offers={offersByCity}
+                    selectedOffer={selectedOffer}
+                  />
+                </section>
+              </div>
+            </div> :
+            <MainEmpty />}
         </div>
+
       </main>
     </div>
   );
