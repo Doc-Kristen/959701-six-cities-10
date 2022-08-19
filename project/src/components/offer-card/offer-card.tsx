@@ -12,7 +12,7 @@ type OfferCardProps = {
 }
 
 const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): JSX.Element => {
-  const [changeStatusFavoriteAction] = useFavoriteStatus(offer);
+  const [buttonClickHandle] = useFavoriteStatus(offer);
   const maxRating = 5;
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
   const dispatch = useAppDispatch();
@@ -53,7 +53,7 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): J
           <button
             className={offer.isFavorite ? 'place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
-            onClick={changeStatusFavoriteAction}
+            onClick={buttonClickHandle}
           >
             <svg
               className="place-card__bookmark-icon"
