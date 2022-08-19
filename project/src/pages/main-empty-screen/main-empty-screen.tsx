@@ -1,16 +1,16 @@
 import Header from '../../components/header/header';
 import Filter from '../../components/filter/filter';
-import { cities } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getSelectedCity } from '../../store/offer-process/selectors';
 
 const MainEmptyScreen = (): JSX.Element => {
-  const { city } = useAppSelector((state) => state);
+  const city = useAppSelector(getSelectedCity);
   return (
     <div className='page page--gray page--main'>
       <Header />
       <main className='page__main page__main--index page__main--index-empty'>
         <h1 className='visually-hidden'>Cities</h1>
-        <Filter cities={cities} />
+        <Filter />
         <div className='cities'>
           <div className='cities__places-container cities__places-container--empty container'>
             <section className='cities__no-places'>

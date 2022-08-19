@@ -5,10 +5,15 @@ import ReviewForm from '../../components/review-form/review-form';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import { AuthorizationStatus } from '../../const';
+import { getNearOffers, getReviews, getSelectedOffer } from '../../store/offer-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 const RoomScreen = (): JSX.Element => {
 
-  const { selectedOffer, reviews, nearOffers, authorizationStatus } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const selectedOffer = useAppSelector(getSelectedOffer);
+  const reviews = useAppSelector(getReviews);
+  const nearOffers = useAppSelector(getNearOffers);
 
   return (
     <div className="page">

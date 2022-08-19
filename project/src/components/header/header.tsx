@@ -4,10 +4,14 @@ import { AppRoute } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
 
 const Header = (): JSX.Element => {
-  const { authorizationStatus, userData } = useAppSelector((state) => state);
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userData = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
+
   return (
     <header className="header">
       <div className="container">

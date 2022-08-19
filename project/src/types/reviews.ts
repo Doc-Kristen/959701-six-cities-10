@@ -1,9 +1,13 @@
-
 type User = {
     avatarUrl: string
     id: number
     isPro: boolean
     name: string
+};
+
+type UserReview = {
+    comment: string
+    rating: number
 };
 
 type Review = {
@@ -16,4 +20,4 @@ type Review = {
 
 type Reviews = Review[];
 
-export type { Review, Reviews };
+export type { Review, UserReview, Reviews };

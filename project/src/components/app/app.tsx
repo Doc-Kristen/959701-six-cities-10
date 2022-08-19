@@ -11,10 +11,16 @@ import MainEmptyScreen from '../../pages/main-empty-screen/main-empty-screen';
 import LoadingScreen from '../loading/loading';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getDataLoadedStatus, getOffers } from '../../store/offer-data/selectors';
 
 const App = (): JSX.Element => {
 
-  const { isDataLoaded, offersByCity, authorizationStatus } = useAppSelector((state) => state);
+  const isDataLoaded = useAppSelector(getDataLoadedStatus);
+
+  const offers = useAppSelector(getOffers);
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (isDataLoaded) {
     return (
@@ -28,7 +34,7 @@ const App = (): JSX.Element => {
         <Route
           path={AppRoute.Main}
           element={
-            offersByCity && offersByCity.length ? <MainScreen /> : <MainEmptyScreen />
+            offers && offers.length ? <MainScreen /> : <MainEmptyScreen />
           }
         />
         <Route
@@ -42,7 +48,7 @@ const App = (): JSX.Element => {
               authorizationStatus={authorizationStatus}
             >
               <FavoritesScreen
-                offers={offersByCity}
+                offers={offers}
               />
             </PrivateRoute>
           }
@@ -50,7 +56,7 @@ const App = (): JSX.Element => {
         <Route
           path={AppRoute.Room}
           element={
-            <RoomScreen/>
+            <RoomScreen />
           }
         />
         <Route
