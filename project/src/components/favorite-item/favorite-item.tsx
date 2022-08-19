@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import { UseFavoriteScreen } from '../../hooks/useFavoriteScreen';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
-import { fetchNearOffersAction, fetchReviewsAction, fetchSelectedOfferAction } from '../../store/api-actions';
 import { Offer } from '../../types/offers';
 
 type FavoriteItemProps = {
@@ -9,15 +8,13 @@ type FavoriteItemProps = {
 }
 
 const FavoriteItem = ({ offer }: FavoriteItemProps): JSX.Element => {
-  const dispatch = useAppDispatch();
+
   const maxRating = 5;
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
+
   const [buttonClickHandle] = useFavoriteStatus(offer);
-  const offerClickHandle = (offerId: number) => {
-    dispatch(fetchSelectedOfferAction(offerId));
-    dispatch(fetchReviewsAction(offerId));
-    dispatch(fetchNearOffersAction(offerId));
-  };
+  const [offerCardClickHandle] = UseFavoriteScreen(offer.id);
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -30,10 +27,7 @@ const FavoriteItem = ({ offer }: FavoriteItemProps): JSX.Element => {
       <div className="favorites__places">
         <article
           className="favorites__card place-card"
-          onClick={(evt) => {
-            evt.preventDefault();
-            offerClickHandle(offer.id);
-          }}
+          onClick={offerCardClickHandle}
         >
           {offer.isPremium ?
             <div className="place-card__mark">

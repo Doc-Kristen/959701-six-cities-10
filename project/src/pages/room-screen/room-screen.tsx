@@ -13,10 +13,13 @@ const RoomScreen = (): JSX.Element => {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const selectedOffer = useAppSelector(getSelectedOffer);
-  const [buttonClickHandle] = useFavoriteStatus(selectedOffer);
   const reviews = useAppSelector(getReviews);
   const nearOffers = useAppSelector(getNearOffers);
+
   const favoriteButtonStyle = selectedOffer?.isFavorite ? '#4481c3' : 'none';
+
+  const [buttonClickHandle] = useFavoriteStatus(selectedOffer);
+
   return (
     <div className="page">
       <Header />
