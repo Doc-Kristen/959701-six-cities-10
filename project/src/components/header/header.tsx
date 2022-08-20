@@ -3,13 +3,15 @@ import Logo from '../logo/logo';
 import { AppRoute } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
-import { logoutAction } from '../../store/api-actions';
+import { fetchFavoritesAction, logoutAction } from '../../store/api-actions';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
+import { getFavoritesOffers } from '../../store/offer-data/selectors';
 
 const Header = (): JSX.Element => {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const userData = useAppSelector(getUserData);
+  const favoritesOffers = useAppSelector(getFavoritesOffers);
   const dispatch = useAppDispatch();
 
   return (
@@ -22,7 +24,12 @@ const Header = (): JSX.Element => {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
+                    <Link className="header__nav-link header__nav-link--profile"
+                      to={AppRoute.Favorites}
+                      onClick={() => {
+                        dispatch(fetchFavoritesAction());
+                      }}
+                    >
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                         <img src={userData?.avatarUrl}
                           style={{ 'borderRadius': '100px' }}
@@ -33,7 +40,7 @@ const Header = (): JSX.Element => {
                       <span className="header__user-name user__name">
                         {userData?.name}
                       </span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favoritesOffers.length}</span>
                     </Link>
                   </li>
                   <li className="header__nav-item">

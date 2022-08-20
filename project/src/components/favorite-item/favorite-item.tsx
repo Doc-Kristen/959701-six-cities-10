@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { UseSelectedOffer } from '../../hooks/useSelectedOffer';
+import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 import { Offer } from '../../types/offers';
 
 type FavoriteItemProps = {
@@ -6,25 +8,36 @@ type FavoriteItemProps = {
 }
 
 const FavoriteItem = ({ offer }: FavoriteItemProps): JSX.Element => {
+
   const maxRating = 5;
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
+
+  const [buttonClickHandle] = useFavoriteStatus(offer);
+  const [offerCardClickHandle] = UseSelectedOffer(offer.id);
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <Link className="locations__item-link" to="/">
+          <Link className="locations__item-link" to={`/offer/${offer.id}`}>
             <span>{offer.city.name}</span>
           </Link>
         </div>
       </div>
       <div className="favorites__places">
-        <article className="favorites__card place-card">
+        <article
+          className="favorites__card place-card"
+          onClick={(evt) => {
+            evt.preventDefault();
+            offerCardClickHandle();
+          }}
+        >
           {offer.isPremium ?
             <div className="place-card__mark">
               <span>Premium</span>
             </div> : null}
           <div className="favorites__image-wrapper place-card__image-wrapper">
-            <Link to="/">
+            <Link to={`/offer/${offer.id}`}>
               <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt={offer.title} />
             </Link>
           </div>
@@ -34,7 +47,11 @@ const FavoriteItem = ({ offer }: FavoriteItemProps): JSX.Element => {
                 <b className="place-card__price-value">&euro;{offer.price}</b>
                 <span className="place-card__price-text">&#47;&nbsp;night</span>
               </div>
-              <button className={offer.isFavorite ? 'place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
+              <button
+                className={offer.isFavorite ? 'place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
+                type="button"
+                onClick={buttonClickHandle}
+              >
                 <svg className="place-card__bookmark-icon" width="18" height="19">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -48,7 +65,7 @@ const FavoriteItem = ({ offer }: FavoriteItemProps): JSX.Element => {
               </div>
             </div>
             <h2 className="place-card__name">
-              <Link to="/offer">
+              <Link to={`/offer/${offer.id}`}>
                 {offer.title}
               </Link>
             </h2>

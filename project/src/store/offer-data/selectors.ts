@@ -22,3 +22,7 @@ export const getReviews = (state: State): Reviews | undefined => state[NameSpace
 export const getSortedReviews = createSelector(getReviews, (reviews) => reviews?.sort(sortReviewsDayDown));
 
 export const getNearOffers = (state: State): Offers => state[NameSpace.Data].nearOffers;
+
+export const getFavoritesOffers = (state: State): Offers => state[NameSpace.Data].favoritesOffers;
+
+export const changeFavoriteStatusOffer = (state: State): Offer | undefined => state[NameSpace.Data].selectedOffer;

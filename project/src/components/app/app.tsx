@@ -7,18 +7,15 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import RoomScreen from '../../pages/room-screen/room-screen';
-import MainEmptyScreen from '../../pages/main-empty-screen/main-empty-screen';
 import LoadingScreen from '../loading/loading';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getDataLoadedStatus, getOffers } from '../../store/offer-data/selectors';
+import { getDataLoadedStatus } from '../../store/offer-data/selectors';
 
 const App = (): JSX.Element => {
 
   const isDataLoaded = useAppSelector(getDataLoadedStatus);
-
-  const offers = useAppSelector(getOffers);
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -34,7 +31,7 @@ const App = (): JSX.Element => {
         <Route
           path={AppRoute.Main}
           element={
-            offers && offers.length ? <MainScreen /> : <MainEmptyScreen />
+            <MainScreen />
           }
         />
         <Route
@@ -47,9 +44,7 @@ const App = (): JSX.Element => {
             <PrivateRoute
               authorizationStatus={authorizationStatus}
             >
-              <FavoritesScreen
-                offers={offers}
-              />
+              <FavoritesScreen />
             </PrivateRoute>
           }
         />

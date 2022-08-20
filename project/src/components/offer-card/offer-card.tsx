@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ClassNameCardType } from '../../const';
 import { ClassNameCard, Offer } from '../../types/offers';
-import { fetchSelectedOfferAction, fetchReviewsAction, fetchNearOffersAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
+import { UseSelectedOffer } from '../../hooks/useSelectedOffer';
 
 type OfferCardProps = {
   offer: Offer,
@@ -11,21 +11,20 @@ type OfferCardProps = {
 }
 
 const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): JSX.Element => {
+
   const maxRating = 5;
   const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
-  const dispatch = useAppDispatch();
-  const offerClickHandle = (offerId: number) => {
-    dispatch(fetchSelectedOfferAction(offerId));
-    dispatch(fetchReviewsAction(offerId));
-    dispatch(fetchNearOffersAction(offerId));
-  };
+
+  const [buttonClickHandle] = useFavoriteStatus(offer);
+  const [offerCardClickHandle] = UseSelectedOffer(offer.id);
+
   return (
     <article
       className={`${ClassNameCardType[cardType].card} place-card`}
       onMouseOver={() => offerMouseOverHandle && offerMouseOverHandle(offer.id)}
       onClick={(evt) => {
         evt.preventDefault();
-        offerClickHandle(offer.id);
+        offerCardClickHandle();
       }}
     >
       {offer.isPremium ?
@@ -50,6 +49,7 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): J
           <button
             className={offer.isFavorite ? 'place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
+            onClick={buttonClickHandle}
           >
             <svg
               className="place-card__bookmark-icon"
