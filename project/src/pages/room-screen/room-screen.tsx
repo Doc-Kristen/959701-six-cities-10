@@ -8,7 +8,7 @@ import { AuthorizationStatus, MAX_PHOTO_COUNT, MAX_REVIEWS_COUNT } from '../../c
 import { getNearOffers, getReviews, getSelectedOffer } from '../../store/offer-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
-import { sortReviewsDayDown } from '../../utils';
+import { calcRating, sortReviewsDayDown } from '../../utils';
 
 const RoomScreen = (): JSX.Element => {
 
@@ -19,6 +19,8 @@ const RoomScreen = (): JSX.Element => {
   const nearOffers = useAppSelector(getNearOffers);
 
   const favoriteButtonStyle = selectedOffer?.isFavorite ? '#4481c3' : 'none';
+
+  const currentRating = calcRating(selectedOffer ? selectedOffer.rating : 0);
 
   const [buttonClickHandle] = useFavoriteStatus(selectedOffer);
 
@@ -65,10 +67,10 @@ const RoomScreen = (): JSX.Element => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: '80%' }}></span>
+                  <span style={{ width: currentRating }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{selectedOffer?.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">

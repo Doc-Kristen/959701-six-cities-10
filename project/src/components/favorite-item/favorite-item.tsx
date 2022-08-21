@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { UseSelectedOffer } from '../../hooks/useSelectedOffer';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 import { Offer } from '../../types/offers';
+import { calcRating } from '../../utils';
 
 type FavoriteItemProps = {
   offer: Offer
@@ -9,8 +10,7 @@ type FavoriteItemProps = {
 
 const FavoriteItem = ({ offer }: FavoriteItemProps): JSX.Element => {
 
-  const maxRating = 5;
-  const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
+  const currentRating = calcRating(offer.rating);
 
   const [buttonClickHandle] = useFavoriteStatus(offer);
   const [offerCardClickHandle] = UseSelectedOffer(offer.id);

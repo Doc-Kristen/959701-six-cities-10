@@ -3,6 +3,7 @@ import { ClassNameCardType } from '../../const';
 import { ClassNameCard, Offer } from '../../types/offers';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 import { UseSelectedOffer } from '../../hooks/useSelectedOffer';
+import { calcRating } from '../../utils';
 
 type OfferCardProps = {
   offer: Offer,
@@ -12,8 +13,7 @@ type OfferCardProps = {
 
 const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): JSX.Element => {
 
-  const maxRating = 5;
-  const currentRating = `${Math.round(offer.rating) * 100 / maxRating}%`;
+  const currentRating = calcRating(offer.rating);
 
   const [buttonClickHandle] = useFavoriteStatus(offer);
   const [offerCardClickHandle] = UseSelectedOffer(offer.id);

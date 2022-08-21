@@ -1,6 +1,6 @@
 import { Offer, Offers } from './types/offers';
 import { Review } from './types/reviews';
-import { SortingType } from './const';
+import { MAX_RATING, SortingType } from './const';
 import dayjs from 'dayjs';
 
 // Фильтрация офферов
@@ -44,6 +44,10 @@ const sortOffers = (offers: Offers | undefined, sortingType: string) => {
   }
 };
 
+// Расчет количества закрашенных звезд для рейтинга
+
+const calcRating = (offerRating : number) => `${Math.round(offerRating) * 100 / MAX_RATING}%`;
+
 export {
   getOffersByCity,
   getCityData,
@@ -52,5 +56,6 @@ export {
   sortPriceUp,
   sortTopRatedFirst,
   sortReviewsDayDown,
-  sortOffers
+  sortOffers,
+  calcRating
 };
