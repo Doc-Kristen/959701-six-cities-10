@@ -6,6 +6,10 @@ const MIN_COMMENT_LENGTH = 50;
 
 const MAX_COMMENT_LENGTH = 300;
 
+const MAX_REVIEWS_COUNT = 10;
+
+const MAX_PHOTO_COUNT = 6;
+
 enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -90,5 +94,7 @@ export {
   ClassNameCardType,
   MIN_COMMENT_LENGTH,
   MAX_COMMENT_LENGTH,
-  ratingValues
+  ratingValues,
+  MAX_REVIEWS_COUNT,
+  MAX_PHOTO_COUNT
 };

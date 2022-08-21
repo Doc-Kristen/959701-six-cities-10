@@ -4,16 +4,18 @@ import ReviewList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, MAX_PHOTO_COUNT, MAX_REVIEWS_COUNT } from '../../const';
 import { getNearOffers, getReviews, getSelectedOffer } from '../../store/offer-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
+import { sortReviewsDayDown } from '../../utils';
 
 const RoomScreen = (): JSX.Element => {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const selectedOffer = useAppSelector(getSelectedOffer);
-  const reviews = useAppSelector(getReviews);
+  const allReviews = useAppSelector(getReviews);
+  const lastReviews = allReviews && allReviews.slice().sort(sortReviewsDayDown).slice(0, MAX_REVIEWS_COUNT);
   const nearOffers = useAppSelector(getNearOffers);
 
   const favoriteButtonStyle = selectedOffer?.isFavorite ? '#4481c3' : 'none';
@@ -27,9 +29,9 @@ const RoomScreen = (): JSX.Element => {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {selectedOffer && selectedOffer.images.map((image) => (
+              {selectedOffer && selectedOffer.images.slice(0, MAX_PHOTO_COUNT).map((image) => (
                 <div className="property__image-wrapper" key={image}>
-                  <img className="property__image" src={image} alt="  studio" />
+                  <img className="property__image" src={image} alt={selectedOffer.title} />
                 </div>
               ))}
             </div>
@@ -98,7 +100,7 @@ const RoomScreen = (): JSX.Element => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={`property__avatar-wrapper property__avatar-wrapper${selectedOffer?.host.isPro ? '--pro' : null} user__avatar-wrapper`}>
                     <img className="property__avatar user__avatar" src={selectedOffer && selectedOffer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
@@ -117,10 +119,10 @@ const RoomScreen = (): JSX.Element => {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;
-                  <span className="reviews__amount">{reviews && reviews.length}</span>
+                  <span className="reviews__amount">{allReviews && allReviews.length}</span>
                 </h2>
                 <ReviewList
-                  reviews={reviews}
+                  reviews={lastReviews}
                 />
                 {authorizationStatus === AuthorizationStatus.Auth ? <ReviewForm /> : null}
               </section>
@@ -136,10 +138,12 @@ const RoomScreen = (): JSX.Element => {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList
-              offers={nearOffers}
-              cardType={'near-places'}
-            />
+            {nearOffers.length > 0 ?
+              <OffersList
+                offers={nearOffers}
+                cardType={'near-places'}
+              /> :
+              <p className="near-places__title">Sorry, no places found nearby:(</p>}
           </section>
         </div>
       </main>
