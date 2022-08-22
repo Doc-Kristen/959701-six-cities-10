@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, cities, SortingType } from '../../const';
 import Logo from '../../components/logo/logo';
 import { useRef, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
+import { getArrayRandomElement } from '../../utils';
+import { selectCity, selectDefaultSortyngType } from '../../store/offer-process/offer-process';
 
 const LoginScreen = (): JSX.Element => {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -14,6 +16,7 @@ const LoginScreen = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const randomCity = getArrayRandomElement(cities);
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
   };
@@ -70,8 +73,14 @@ const LoginScreen = (): JSX.Element => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>Amsterdam</span>
+              <Link className="locations__item-link"
+                to={AppRoute.Main}
+                onClick={() => {
+                  dispatch(selectCity(randomCity));
+                  dispatch(selectDefaultSortyngType(SortingType.Popular));
+                }}
+              >
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>

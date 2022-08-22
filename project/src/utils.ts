@@ -48,6 +48,13 @@ const sortOffers = (offers: Offers | undefined, sortingType: string) => {
 
 const calcRating = (offerRating : number) => `${Math.round(offerRating) * 100 / MAX_RATING}%`;
 
+// Функция, для получения случайного элемента массива.
+
+const getArrayRandomElement = (arr : string[]) => {
+  const rand = Math.floor(Math.random() * arr.length);
+  return arr[rand];
+};
+
 export {
   getOffersByCity,
   getCityData,
@@ -57,5 +64,6 @@ export {
   sortTopRatedFirst,
   sortReviewsDayDown,
   sortOffers,
-  calcRating
+  calcRating,
+  getArrayRandomElement
 };
