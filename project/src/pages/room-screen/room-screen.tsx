@@ -1,28 +1,50 @@
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Header from '../../components/header/header';
 import ReviewList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import { AuthorizationStatus, MAX_PHOTO_COUNT, MAX_REVIEWS_COUNT } from '../../const';
-import { getNearOffers, getReviews, getSelectedOffer } from '../../store/offer-data/selectors';
+import { getDataLoadedStatus, getNearOffers, getReviews, getSelectedOffer } from '../../store/offer-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 import { calcRating, sortReviewsDayDown } from '../../utils';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { fetchSelectedOfferAction } from '../../store/api-actions';
+import LoadingScreen from '../../components/loading/loading';
 
 const RoomScreen = (): JSX.Element => {
 
+  const { id } = useParams();
+  const offerId = Number(id);
+  const dispatch = useAppDispatch();
+
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoaded = useAppSelector(getDataLoadedStatus);
   const selectedOffer = useAppSelector(getSelectedOffer);
   const allReviews = useAppSelector(getReviews);
   const lastReviews = allReviews && allReviews.slice().sort(sortReviewsDayDown).slice(0, MAX_REVIEWS_COUNT);
   const nearOffers = useAppSelector(getNearOffers);
 
   const favoriteButtonStyle = selectedOffer?.isFavorite ? '#4481c3' : 'none';
-
-  const currentRating = calcRating(selectedOffer ? selectedOffer.rating : 0);
+  const currentRating = selectedOffer ? calcRating(selectedOffer.rating) : 0;
 
   const [buttonClickHandle] = useFavoriteStatus(selectedOffer);
+
+  useEffect(() => {
+    dispatch(fetchSelectedOfferAction(offerId));
+    window.scrollTo(0, 0);
+  }, [dispatch, offerId]);
+
+  if (
+    isDataLoaded ||
+    !selectedOffer
+  ) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <div className="page">

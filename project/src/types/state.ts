@@ -12,7 +12,7 @@ export type UserProcess = {
 export type OfferData = {
   offers: Offers,
   isDataLoaded: boolean,
-  selectedOffer: Offer | undefined,
+  selectedOffer?: Offer,
   reviews: Reviews,
   nearOffers: Offers,
   favoritesOffers: Offers

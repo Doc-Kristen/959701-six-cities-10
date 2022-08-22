@@ -2,12 +2,13 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { Offer, Offers } from '../types/offers';
-import { redirectToRoute } from './action';
+import { redirectToRoute, updateSelectedOffer } from './action';
 import { APIRoute, AppRoute } from '../const';
 import { saveToken, dropToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data.js';
 import { Reviews } from '../types/reviews.js';
+import { toast } from 'react-toastify';
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch,
@@ -31,9 +32,13 @@ export const fetchSelectedOfferAction = createAsyncThunk<Offer, number, {
 
     try {
       const { data } = await api.get(`${APIRoute.Offers}/${offerId}`);
+      dispatch(updateSelectedOffer(data));
+      dispatch(fetchNearOffersAction(offerId));
+      dispatch(fetchReviewsAction(offerId));
       return data;
     } catch {
       dispatch(redirectToRoute(AppRoute.NotFound));
+      toast.warn('The selected offer was not found.');
     }
   },
 );
@@ -45,9 +50,15 @@ export const fetchReviewsAction = createAsyncThunk<Reviews, number, {
 }>(
   'data/fetchReviews',
   async (offerId: number, { extra: api }) => {
-    const { data } = await api.get(`${APIRoute.Reviews}/${offerId}`);
-    return data;
-  }
+
+    try {
+      const { data } = await api.get(`${APIRoute.Reviews}/${offerId}`);
+      return data;
+    } catch {
+      toast.warn('The reviews was not found.');
+      return [];
+    }
+  },
 );
 
 export const fetchNearOffersAction = createAsyncThunk<Offers, number, {
@@ -57,9 +68,14 @@ export const fetchNearOffersAction = createAsyncThunk<Offers, number, {
 }>(
   'data/fetchNearOffers',
   async (offerId: number, { extra: api }) => {
-    const { data } = await api.get(`${APIRoute.Offers}/${offerId}/nearby`);
-    return data;
-  }
+    try {
+      const { data } = await api.get(`${APIRoute.Offers}/${offerId}/nearby`);
+      return data;
+    } catch {
+      toast.warn('The nerby offer was not found.');
+      return [];
+    }
+  },
 );
 
 export const fetchFavoritesAction = createAsyncThunk<Offers, undefined, {
@@ -69,8 +85,13 @@ export const fetchFavoritesAction = createAsyncThunk<Offers, undefined, {
 }>(
   'data/fetchFavorites',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<Offers>(APIRoute.Favorites);
-    return data;
+    try {
+      const { data } = await api.get<Offers>(APIRoute.Favorites);
+      return data;
+    } catch {
+      toast.warn('The favorites offers was not found.');
+      return [];
+    }
   },
 );
 
