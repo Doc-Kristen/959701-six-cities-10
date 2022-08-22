@@ -1,13 +1,13 @@
 import { Review } from '../../types/reviews';
-import { humanizeHeaderDueDate } from '../../utils';
+import { calcRating, humanizeHeaderDueDate } from '../../utils';
 
 type ReviewItemProps = {
   review: Review,
 }
 
 const ReviewItem = ({ review }: ReviewItemProps): JSX.Element => {
-  const maxRating = 5;
-  const currentRating = `${Math.round(review.rating) * 100 / maxRating}%`;
+
+  const currentRating = calcRating(review.rating);
 
   return (
     <li className="reviews__item">

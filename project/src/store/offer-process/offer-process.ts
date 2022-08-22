@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace, SortingType } from '../../const';
+import { NameSpace, SortingType, cities } from '../../const';
 import { OfferProcess } from '../../types/state';
 
-const DEFAULT_CITY = 'Paris';
-
 const initialState: OfferProcess = {
-  city: DEFAULT_CITY,
+  city: cities[0],
   sortingType: SortingType.Popular,
 };
 
