@@ -11,13 +11,20 @@ import LoadingScreen from '../loading/loading';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getDataLoadedStatus } from '../../store/offer-data/selectors';
+import { getDataLoadedStatus, getServerErrorStatus } from '../../store/offer-data/selectors';
+import ErrorScreen from '../../pages/error-screen/error-screen';
 
 const App = (): JSX.Element => {
 
   const isDataLoaded = useAppSelector(getDataLoadedStatus);
-
+  const isServerError = useAppSelector(getServerErrorStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  if (isServerError) {
+    return (
+      <ErrorScreen />
+    );
+  }
 
   if (isDataLoaded) {
     return (

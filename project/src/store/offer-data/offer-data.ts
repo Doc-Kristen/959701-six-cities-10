@@ -7,6 +7,7 @@ import { fetchNearOffersAction, fetchReviewsAction, fetchSelectedOfferAction, fe
 const initialState: OfferData = {
   offers: [],
   isDataLoaded: false,
+  isServerError: false,
   reviews: [],
   nearOffers: [],
   favoritesOffers: []
@@ -24,9 +25,11 @@ export const offerData = createSlice({
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isDataLoaded = false;
+        state.isServerError = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isDataLoaded = false;
+        state.isServerError = true;
       })
       .addCase(fetchSelectedOfferAction.pending, (state, action) => {
         state.selectedOffer = action.payload;
@@ -34,9 +37,6 @@ export const offerData = createSlice({
       })
       .addCase(fetchSelectedOfferAction.fulfilled, (state, action) => {
         state.selectedOffer = action.payload;
-        state.isDataLoaded = false;
-      })
-      .addCase(fetchSelectedOfferAction.rejected, (state) => {
         state.isDataLoaded = false;
       })
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {

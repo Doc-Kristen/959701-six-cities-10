@@ -143,7 +143,7 @@ const RoomScreen = (): JSX.Element => {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;
-                  <span className="reviews__amount">{allReviews && allReviews.length}</span>
+                  <span className="reviews__amount">{lastReviews && lastReviews.length}</span>
                 </h2>
                 <ReviewList
                   reviews={lastReviews}

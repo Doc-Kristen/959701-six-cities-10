@@ -10,7 +10,7 @@ import { UserData } from '../types/user-data.js';
 import { Reviews } from '../types/reviews.js';
 import { toast } from 'react-toastify';
 
-export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
+export const fetchOffersAction = createAsyncThunk<Offers, void, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -38,7 +38,7 @@ export const fetchSelectedOfferAction = createAsyncThunk<Offer, number, {
       return data;
     } catch {
       dispatch(redirectToRoute(AppRoute.NotFound));
-      toast.warn('The selected offer was not found.');
+      return [];
     }
   },
 );
@@ -55,7 +55,7 @@ export const fetchReviewsAction = createAsyncThunk<Reviews, number, {
       const { data } = await api.get(`${APIRoute.Reviews}/${offerId}`);
       return data;
     } catch {
-      toast.warn('The reviews was not found.');
+      toast.warn('Reviews were not found.');
       return [];
     }
   },
@@ -72,7 +72,7 @@ export const fetchNearOffersAction = createAsyncThunk<Offers, number, {
       const { data } = await api.get(`${APIRoute.Offers}/${offerId}/nearby`);
       return data;
     } catch {
-      toast.warn('The nerby offer was not found.');
+      toast.warn('Nearby offers were not found.');
       return [];
     }
   },
@@ -89,7 +89,7 @@ export const fetchFavoritesAction = createAsyncThunk<Offers, undefined, {
       const { data } = await api.get<Offers>(APIRoute.Favorites);
       return data;
     } catch {
-      toast.warn('The favorites offers was not found.');
+      toast.warn('Favorite offers were not found.');
       return [];
     }
   },

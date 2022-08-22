@@ -22,3 +22,5 @@ export const getReviews = (state: State): Reviews | undefined => state[NameSpace
 export const getNearOffers = (state: State): Offers => state[NameSpace.Data].nearOffers;
 
 export const getFavoritesOffers = (state: State): Offers => state[NameSpace.Data].favoritesOffers;
+
+export const getServerErrorStatus = (state: State): boolean => state[NameSpace.Data].isServerError;

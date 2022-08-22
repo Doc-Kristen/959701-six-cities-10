@@ -16,6 +16,7 @@ const MainScreen = (): JSX.Element => {
   );
   const city = useAppSelector(getSelectedCity);
   const offersByCity = useAppSelector(filterOffers);
+  const classNameMainContainer = offersByCity && offersByCity?.length > 0 ? '' : 'page__main--index-empty';
 
   const handleOfferMouseOver = (id: number | undefined) => {
     const currentOffer = offersByCity && offersByCity.find((offer) => offer.id === id);
@@ -25,7 +26,7 @@ const MainScreen = (): JSX.Element => {
   return (
     <div className="page page--gray page--main">
       <Header />
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${classNameMainContainer}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <Filter />

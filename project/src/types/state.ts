@@ -13,6 +13,7 @@ export type OfferData = {
   offers: Offers,
   isDataLoaded: boolean,
   selectedOffer?: Offer,
+  isServerError: boolean,
   reviews: Reviews,
   nearOffers: Offers,
   favoritesOffers: Offers
