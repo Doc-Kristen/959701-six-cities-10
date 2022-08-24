@@ -4,23 +4,34 @@ import Header from '../../components/header/header';
 import FavoriteItem from '../../components/favorite-item/favorite-item';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import { useAppSelector } from '../../hooks';
-import { getFavoritesOffers } from '../../store/offer-data/selectors';
+import { getDataLoadedStatus, getFavoritesOffers } from '../../store/offer-data/selectors';
+import LoadingScreen from '../../components/loading/loading';
 
 const FavoritesScreen = (): JSX.Element => {
 
-  const offers = useAppSelector(getFavoritesOffers);
+  const favoritesOffers = useAppSelector(getFavoritesOffers);
+  const isDataLoaded = useAppSelector(getDataLoadedStatus);
+
+  if (
+    isDataLoaded ||
+    !favoritesOffers
+  ) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <div className="page">
       <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          {offers && offers.length > 0 ?
+          {favoritesOffers && favoritesOffers.length > 0 ?
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
                 {
-                  offers.map((offer) => (
+                  favoritesOffers.map((offer) => (
                     <FavoriteItem key={offer.id}
                       offer={offer}
                     />

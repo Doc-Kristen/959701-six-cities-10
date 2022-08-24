@@ -45,18 +45,25 @@ const ClassNameCardType = {
   }
 } as const;
 
-enum SortingType {
-  Popular = 'Popular',
-  LowToHigh = 'Price: low to high',
-  HighToLow = 'Price: high to low',
-  TopRatedFirst = 'Top rated first',
-}
+const SortingType = {
+  Popular: 'Popular',
+  LowToHigh: 'Price: low to high',
+  HighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first',
+} as const;
 
 enum NameSpace {
   Data = 'DATA',
   Offer = 'OFFER',
   User = 'USER',
 }
+
+const OfferType: { [char: string]: string } = {
+  'apartment': 'Apartment',
+  'room': 'Private Room',
+  'house': 'House',
+  'hotel': 'Hotel',
+} as const;
 
 const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
@@ -84,12 +91,15 @@ const ratingValues =
     }
   ];
 
+const passwordRegExp = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/);
+
 export {
   AppRoute,
   APIRoute,
   AuthorizationStatus,
   NameSpace,
   SortingType,
+  OfferType,
   URL_MARKER_CURRENT,
   URL_MARKER_DEFAULT,
   cities,
@@ -99,5 +109,6 @@ export {
   ratingValues,
   MAX_REVIEWS_COUNT,
   MAX_PHOTO_COUNT,
-  MAX_RATING
+  MAX_RATING,
+  passwordRegExp
 };

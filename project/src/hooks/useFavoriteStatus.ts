@@ -1,7 +1,7 @@
 import { api } from '../store';
 import { APIRoute, AuthorizationStatus, AppRoute } from '../const';
 import { useAppDispatch, useAppSelector } from '.';
-import { fetchFavoritesAction, fetchOffersAction } from '../store/api-actions';
+import { checkAuthAction, fetchFavoritesAction, fetchOffersAction } from '../store/api-actions';
 import { Offer } from '../types/offers';
 import { getAuthorizationStatus } from '../store/user-process/selectors';
 import { redirectToRoute, updateSelectedOffer } from '../store/action';
@@ -30,6 +30,7 @@ export const useFavoriteStatus = (offer: Offer | undefined): ResultUseFavoriteSt
       dispatch(fetchOffersAction());
       dispatch(fetchFavoritesAction());
       dispatch(updateSelectedOffer(data));
+      dispatch(checkAuthAction());
     } catch {
       toast.warn(`Failed to ${nameFailedAction} a bookmark. Try again later.`);
     }

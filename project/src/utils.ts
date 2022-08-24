@@ -46,11 +46,11 @@ const sortOffers = (offers: Offers | undefined, sortingType: string) => {
 
 // Расчет количества закрашенных звезд для рейтинга
 
-const calcRating = (offerRating : number) => `${Math.round(offerRating) * 100 / MAX_RATING}%`;
+const calcRating = (offerRating: number) => `${Math.round(offerRating) * 100 / MAX_RATING}%`;
 
-// Функция, для получения случайного элемента массива.
+// Функция для получения случайного города из массива.
 
-const getArrayRandomElement = (arr : string[]) => {
+const getRandomCity = (arr: string[]) => {
   const rand = Math.floor(Math.random() * arr.length);
   return arr[rand];
 };
@@ -65,5 +65,5 @@ export {
   sortReviewsDayDown,
   sortOffers,
   calcRating,
-  getArrayRandomElement
+  getRandomCity
 };

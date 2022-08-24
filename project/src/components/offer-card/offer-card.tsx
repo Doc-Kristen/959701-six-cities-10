@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ClassNameCardType } from '../../const';
+import { ClassNameCardType, OfferType } from '../../const';
 import { ClassNameCard, Offer } from '../../types/offers';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 import { calcRating } from '../../utils';
@@ -66,7 +66,7 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): J
             {offer.title}
           </Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{OfferType[offer.type]}</p>
       </div>
     </article>
   );

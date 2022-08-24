@@ -4,7 +4,7 @@ import ReviewList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
-import { AuthorizationStatus, MAX_PHOTO_COUNT, MAX_REVIEWS_COUNT } from '../../const';
+import { AuthorizationStatus, MAX_PHOTO_COUNT, MAX_REVIEWS_COUNT, OfferType } from '../../const';
 import { getDataLoadedStatus, getNearOffers, getReviews, getSelectedOffer } from '../../store/offer-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
@@ -29,12 +29,10 @@ const RoomScreen = (): JSX.Element => {
 
   const favoriteButtonStyle = selectedOffer?.isFavorite ? '#4481c3' : 'none';
   const currentRating = selectedOffer ? calcRating(selectedOffer.rating) : 0;
-
   const [buttonClickHandle] = useFavoriteStatus(selectedOffer);
 
   useEffect(() => {
     dispatch(fetchSelectedOfferAction(offerId));
-    window.scrollTo(0, 0);
   }, [dispatch, offerId]);
 
   if (
@@ -96,7 +94,7 @@ const RoomScreen = (): JSX.Element => {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {selectedOffer && selectedOffer.type}
+                  {OfferType[selectedOffer && selectedOffer.type]}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {selectedOffer && selectedOffer.bedrooms} Bedrooms

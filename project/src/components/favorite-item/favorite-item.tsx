@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { OfferType } from '../../const';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 import { Offer } from '../../types/offers';
 import { calcRating } from '../../utils';
@@ -61,7 +62,7 @@ const FavoriteItem = ({ offer }: FavoriteItemProps): JSX.Element => {
                 {offer.title}
               </Link>
             </h2>
-            <p className="place-card__type">{offer.type}</p>
+            <p className="place-card__type">{OfferType[offer.type]}</p>
           </div>
         </article>
       </div>

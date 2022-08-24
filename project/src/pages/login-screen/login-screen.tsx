@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, cities, SortingType } from '../../const';
+import { AppRoute, cities, passwordRegExp, SortingType } from '../../const';
 import Logo from '../../components/logo/logo';
 import { useRef, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AuthData } from '../../types/auth-data';
-import { getArrayRandomElement } from '../../utils';
+import { getRandomCity } from '../../utils';
 import { selectCity, selectDefaultSortyngType } from '../../store/offer-process/offer-process';
 
 const LoginScreen = (): JSX.Element => {
@@ -16,21 +15,35 @@ const LoginScreen = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const randomCity = getArrayRandomElement(cities);
-  const onSubmit = (authData: AuthData) => {
-    dispatch(loginAction(authData));
+  const randomCity = getRandomCity(cities);
+
+  const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    let validity = '';
+
+    switch (true) {
+      case /\s/g.test(target.value):
+        validity = 'Enter a password without spaces';
+        break;
+      case !passwordRegExp.test(target.value):
+        validity = 'Enter at least one letter and one digit';
+        break;
+    }
+
+    target.setCustomValidity(validity);
+    target.reportValidity();
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
+      dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value,
-      });
+      }));
       navigate(AppRoute.Main);
     }
   };
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -40,12 +53,11 @@ const LoginScreen = (): JSX.Element => {
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
+            <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input className="login__input form__input"
@@ -65,6 +77,9 @@ const LoginScreen = (): JSX.Element => {
                   id="password"
                   placeholder="Password"
                   ref={passwordRef}
+                  onChange={(evt) => {
+                    handleInputChange(evt);
+                  }}
                   required
                 />
               </div>

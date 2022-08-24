@@ -3,7 +3,7 @@ import Logo from '../logo/logo';
 import { AppRoute } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
-import { fetchFavoritesAction, logoutAction } from '../../store/api-actions';
+import { logoutAction } from '../../store/api-actions';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
 import { getFavoritesOffers } from '../../store/offer-data/selectors';
 
@@ -26,9 +26,6 @@ const Header = (): JSX.Element => {
                   <li className="header__nav-item user">
                     <Link className="header__nav-link header__nav-link--profile"
                       to={AppRoute.Favorites}
-                      onClick={() => {
-                        dispatch(fetchFavoritesAction());
-                      }}
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                         <img src={userData?.avatarUrl}

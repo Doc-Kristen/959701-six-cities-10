@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import PrivateRoute from '../private-route/private-route';
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -13,20 +13,21 @@ import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getDataLoadedStatus, getServerErrorStatus } from '../../store/offer-data/selectors';
 import ErrorScreen from '../../pages/error-screen/error-screen';
+import PrivateLoginScreenRoute from '../private-login-screen-route/private-login-screen-route';
 
 const App = (): JSX.Element => {
 
   const isDataLoaded = useAppSelector(getDataLoadedStatus);
   const isServerError = useAppSelector(getServerErrorStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-
+  const isCheckedAuth = (authStatus: AuthorizationStatus): boolean => authStatus === AuthorizationStatus.Unknown;
   if (isServerError) {
     return (
       <ErrorScreen />
     );
   }
 
-  if (isDataLoaded) {
+  if (isDataLoaded || isCheckedAuth(authorizationStatus)) {
     return (
       <LoadingScreen />
     );
@@ -43,7 +44,13 @@ const App = (): JSX.Element => {
         />
         <Route
           path={AppRoute.Login}
-          element={<LoginScreen />}
+          element={
+            <PrivateLoginScreenRoute
+              authorizationStatus={authorizationStatus}
+            >
+              <LoginScreen />
+            </PrivateLoginScreenRoute>
+          }
         />
         <Route
           path={AppRoute.Favorites}

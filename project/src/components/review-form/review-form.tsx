@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
 import { useReviewForm } from '../../hooks/useReviewForm';
 import RatingList from '../rating-list/rating-list';
 import '../review-form/review-form.css';
@@ -17,19 +18,17 @@ const ReviewForm = (): JSX.Element => {
   const [
     formData,
     formClassName,
-    isButtonDisabled,
     isFormDisabled,
+    isFormValid,
     formSubmitHandle,
     radioChangeHandle,
-    textAreaChangeHandle,
-    formChangeHandle] = useReviewForm(formContentDefault, urlId);
+    textAreaChangeHandle] = useReviewForm(formContentDefault, urlId);
 
   return (
     <form
       className={formClassName}
       action='#'
       method='post'
-      onChange={formChangeHandle}
       onSubmit={formSubmitHandle}
     >
       <label className='reviews__label form__label' htmlFor='review'>Your review</label>
@@ -45,6 +44,8 @@ const ReviewForm = (): JSX.Element => {
         placeholder='Tell how was your stay, what you like and what can be improved'
         value={formData.comment}
         onChange={textAreaChangeHandle}
+        minLength={MIN_COMMENT_LENGTH}
+        maxLength={MAX_COMMENT_LENGTH}
         disabled={isFormDisabled}
         required
       />
@@ -52,7 +53,7 @@ const ReviewForm = (): JSX.Element => {
         <p className='reviews__help'>
           To submit review please make sure to set <span className='reviews__star'>rating</span> and describe your stay with at least <b className='reviews__text-amount'>50 characters</b>.
         </p>
-        <button className='reviews__submit form__submit button' type='submit' disabled={isButtonDisabled}>Submit</button>
+        <button className='reviews__submit form__submit button' type='submit' disabled={!isFormValid || isFormDisabled}>{isFormDisabled ? 'Submiting...' : 'Submit'}</button>
       </div>
     </form>
   );
