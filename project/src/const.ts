@@ -12,6 +12,17 @@ const MAX_PHOTO_COUNT = 6;
 
 const MAX_RATING = 5;
 
+const ImageSize = {
+  BIG: {
+    width: 260,
+    height: 200
+  },
+  SMALL: {
+    width: 150,
+    height: 100
+  }
+} as const;
+
 enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -38,10 +49,20 @@ const ClassNameCardType = {
   'places': {
     card: 'cities__card',
     list: 'cities__places-list',
+    wrapper: 'cities__image-wrapper',
+    info: ''
   },
   'near-places': {
     card: 'near-places__card',
     list: 'near-places__list',
+    wrapper: 'near-places__image-wrapper',
+    info: ''
+  },
+  'favorite-places': {
+    card: 'favorites__card',
+    list: 'favorites__list',
+    wrapper: 'favorites__image-wrapper',
+    info: 'favorites__card-info'
   }
 } as const;
 
@@ -110,5 +131,6 @@ export {
   MAX_REVIEWS_COUNT,
   MAX_PHOTO_COUNT,
   MAX_RATING,
-  passwordRegExp
+  passwordRegExp,
+  ImageSize
 };

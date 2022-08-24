@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ClassNameCardType, OfferType } from '../../const';
+import { ClassNameCardType, OfferType, ImageSize } from '../../const';
 import { ClassNameCard, Offer } from '../../types/offers';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 import { calcRating } from '../../utils';
@@ -8,11 +8,16 @@ type OfferCardProps = {
   offer: Offer,
   cardType: ClassNameCard;
   offerMouseOverHandle?: (id: number | undefined) => void;
+  isSmall?: boolean;
 }
 
-const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): JSX.Element => {
+const OfferCard = ({ offer, cardType, offerMouseOverHandle, isSmall }: OfferCardProps): JSX.Element => {
 
   const currentRating = calcRating(offer.rating);
+
+  const imageSize = isSmall
+    ? ImageSize.SMALL
+    : ImageSize.BIG;
 
   const [buttonClickHandle] = useFavoriteStatus(offer);
 
@@ -25,16 +30,16 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle }: OfferCardProps): J
         <div className="place-card__mark">
           <span>Premium</span>
         </div> : null}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${ClassNameCardType[cardType].wrapper} place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage}
-            width="260"
-            height="200"
+            width={imageSize.width}
+            height={imageSize.height}
             alt={offer.title}
           />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${ClassNameCardType[cardType].info} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{offer.price}</b>

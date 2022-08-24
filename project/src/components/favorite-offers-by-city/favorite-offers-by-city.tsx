@@ -3,7 +3,7 @@ import { AppRoute, SortingType } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { selectCity, selectDefaultSortyngType } from '../../store/offer-process/offer-process';
 import { Offers } from '../../types/offers';
-import OfferFavoriteCard from '../offer-favorite-card/offer-favorite-card';
+import OfferCard from '../offer-card/offer-card';
 
 type FavoriteItemProps = {
   offers: [string, Offers]
@@ -28,8 +28,11 @@ const FavoriteOffersByCity = ({ offers }: FavoriteItemProps): JSX.Element => {
       </div>
       <div className="favorites__places">
         {offers[1].map((offer) => (
-          <OfferFavoriteCard key={offer.id}
+          <OfferCard
+            key={offer.id}
             offer={offer}
+            cardType={'favorite-places'}
+            isSmall
           />
         ))}
       </div>
