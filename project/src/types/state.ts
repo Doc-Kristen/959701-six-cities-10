@@ -4,12 +4,12 @@ import { Offer, Offers } from './offers';
 import { Reviews } from './reviews';
 import { UserData } from './user-data';
 
-export type UserProcess = {
+type UserProcess = {
   authorizationStatus: AuthorizationStatus,
   userData: UserData | null,
 }
 
-export type OfferData = {
+type OfferData = {
   offers: Offers,
   isDataLoaded: boolean,
   selectedOffer?: Offer,
@@ -19,11 +19,13 @@ export type OfferData = {
   favoritesOffers: Offers
 };
 
-export type OfferProcess = {
+type OfferProcess = {
   city: string,
   sortingType: string,
 };
 
-export type State = ReturnType<typeof store.getState>;
+type State = ReturnType<typeof store.getState>;
 
-export type AppDispatch = typeof store.dispatch;
+type AppDispatch = typeof store.dispatch;
+
+export type { UserProcess, OfferData, OfferProcess, State, AppDispatch };

@@ -45,4 +45,3 @@ export const createAPI = (): AxiosInstance => {
 
   return api;
 };
-

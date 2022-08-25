@@ -4,8 +4,9 @@ import { useAppDispatch, useAppSelector } from '.';
 import { checkAuthAction, fetchFavoritesAction, fetchOffersAction } from '../store/api-actions';
 import { Offer } from '../types/offers';
 import { getAuthorizationStatus } from '../store/user-process/selectors';
-import { redirectToRoute, updateSelectedOffer } from '../store/action';
+import { updateSelectedOffer } from '../store/action';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 type ResultUseFavoriteStatus = [
   changeStatusFavoriteAction: () => void,
@@ -14,6 +15,7 @@ type ResultUseFavoriteStatus = [
 export const useFavoriteStatus = (offer: Offer | undefined): ResultUseFavoriteStatus => {
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -21,9 +23,9 @@ export const useFavoriteStatus = (offer: Offer | undefined): ResultUseFavoriteSt
 
   const nameFailedAction = statusNumber === 1 ? 'create' : 'remove';
 
-  const buttonClickHandle = async () => {
+  const handleButtonClick = async () => {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
-      return dispatch(redirectToRoute(AppRoute.Login));
+      return navigate(AppRoute.Login);
     }
     try {
       const { data } = await api.post(`${APIRoute.Favorites}/${offer && offer.id}/${statusNumber}`, statusNumber);
@@ -36,5 +38,5 @@ export const useFavoriteStatus = (offer: Offer | undefined): ResultUseFavoriteSt
     }
   };
 
-  return [buttonClickHandle];
+  return [handleButtonClick];
 };

@@ -9,10 +9,11 @@ import { getFavoritesOffers } from '../../store/offer-data/selectors';
 
 const Header = (): JSX.Element => {
 
+  const dispatch = useAppDispatch();
+
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const userData = useAppSelector(getUserData);
   const favoritesOffers = useAppSelector(getFavoritesOffers);
-  const dispatch = useAppDispatch();
 
   return (
     <header className="header">

@@ -7,8 +7,8 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import RoomScreen from '../../pages/room-screen/room-screen';
-import LoadingScreen from '../loading/loading';
-import HistoryRouter from '../history-router/history-router';
+import Loading from '../loading/loading';
+import HistoryRoute from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getDataLoadedStatus, getServerErrorStatus } from '../../store/offer-data/selectors';
@@ -21,6 +21,7 @@ const App = (): JSX.Element => {
   const isServerError = useAppSelector(getServerErrorStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isCheckedAuth = (authStatus: AuthorizationStatus): boolean => authStatus === AuthorizationStatus.Unknown;
+
   if (isServerError) {
     return (
       <ErrorScreen />
@@ -29,12 +30,12 @@ const App = (): JSX.Element => {
 
   if (isDataLoaded || isCheckedAuth(authorizationStatus)) {
     return (
-      <LoadingScreen />
+      <Loading />
     );
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
+    <HistoryRoute history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -73,7 +74,7 @@ const App = (): JSX.Element => {
           element={<NotFoundScreen />}
         />
       </Routes>
-    </HistoryRouter>
+    </HistoryRoute>
   );
 };
 export default App;

@@ -5,9 +5,10 @@ import { selectCity, selectDefaultSortyngType } from '../../store/offer-process/
 import { cities, SortingType } from '../../const';
 
 const Filter = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+
   const selectedCity = useAppSelector(getSelectedCity);
 
-  const dispatch = useAppDispatch();
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">

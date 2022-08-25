@@ -1,5 +1,5 @@
-import { ClassNameCardType } from '../../const';
-import { ClassNameCard, Offers } from '../../types/offers';
+import { ClassNameCard } from '../../const';
+import { ClassNameCardType, Offers } from '../../types/offers';
 import OfferCard from '../offer-card/offer-card';
 import { useAppSelector } from '../../hooks';
 import { getSortingType } from '../../store/offer-process/selectors';
@@ -8,7 +8,7 @@ import { sortOffers } from '../../utils';
 type OffersListProps = {
   offers: Offers | undefined,
   offerMouseOverHandle?: (id: number | undefined) => void,
-  cardType: ClassNameCard;
+  cardType: ClassNameCardType;
 }
 
 const OffersList = ({ offers, offerMouseOverHandle, cardType }: OffersListProps): JSX.Element => {
@@ -18,7 +18,7 @@ const OffersList = ({ offers, offerMouseOverHandle, cardType }: OffersListProps)
 
   return (
 
-    <div className={`${ClassNameCardType[cardType].list} places__list tabs__content`}>
+    <div className={`${ClassNameCard[cardType].List} places__list tabs__content`}>
       {sortedOffers && sortedOffers.map((offer) => (
         <OfferCard key={offer.id}
           offer={offer}

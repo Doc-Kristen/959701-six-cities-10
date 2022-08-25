@@ -2,13 +2,14 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { Offer, Offers } from '../types/offers';
-import { redirectToRoute, updateSelectedOffer } from './action';
-import { APIRoute, AppRoute } from '../const';
+import { redirectToRoute } from './action';
+import { APIRoute, AppRoute, cities, SortingType } from '../const';
 import { saveToken, dropToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
-import { UserData } from '../types/user-data.js';
-import { Reviews } from '../types/reviews.js';
+import { UserData } from '../types/user-data';
+import { Reviews } from '../types/reviews';
 import { toast } from 'react-toastify';
+import { selectCity, selectDefaultSortyngType } from './offer-process/offer-process';
 
 export const fetchOffersAction = createAsyncThunk<Offers, void, {
   dispatch: AppDispatch,
@@ -32,13 +33,11 @@ export const fetchSelectedOfferAction = createAsyncThunk<Offer, number, {
 
     try {
       const { data } = await api.get(`${APIRoute.Offers}/${offerId}`);
-      dispatch(updateSelectedOffer(data));
       dispatch(fetchNearOffersAction(offerId));
       dispatch(fetchReviewsAction(offerId));
       return data;
     } catch {
       dispatch(redirectToRoute(AppRoute.NotFound));
-      return [];
     }
   },
 );
@@ -119,6 +118,8 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
     saveToken(data.token);
     dispatch(fetchOffersAction());
     dispatch(fetchFavoritesAction());
+    dispatch(selectCity(cities[0]));
+    dispatch(selectDefaultSortyngType(SortingType.Popular));
     dispatch(redirectToRoute(AppRoute.Main));
     return data;
   }
@@ -134,5 +135,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(fetchOffersAction());
+    dispatch(selectCity(cities[0]));
+    dispatch(selectDefaultSortyngType(SortingType.Popular));
   },
 );

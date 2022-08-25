@@ -9,11 +9,11 @@ import { getRandomCity } from '../../utils';
 import { selectCity, selectDefaultSortyngType } from '../../store/offer-process/offer-process';
 
 const LoginScreen = (): JSX.Element => {
-  const loginRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const randomCity = getRandomCity(cities);
 

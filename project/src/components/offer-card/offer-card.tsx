@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
-import { ClassNameCardType, OfferType, ImageSize } from '../../const';
-import { ClassNameCard, Offer } from '../../types/offers';
+import { ClassNameCard, OfferType, ImageSize } from '../../const';
+import { ClassNameCardType, Offer } from '../../types/offers';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
 import { calcRating } from '../../utils';
 
 type OfferCardProps = {
   offer: Offer,
-  cardType: ClassNameCard;
+  cardType: ClassNameCardType;
   offerMouseOverHandle?: (id: number | undefined) => void;
   isSmall?: boolean;
 }
 
-const OfferCard = ({ offer, cardType, offerMouseOverHandle, isSmall }: OfferCardProps): JSX.Element => {
+const OfferCard = ({ offer, cardType, offerMouseOverHandle: onOfferMouseOverHandle, isSmall }: OfferCardProps): JSX.Element => {
 
   const currentRating = calcRating(offer.rating);
 
@@ -19,18 +19,18 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle, isSmall }: OfferCard
     ? ImageSize.SMALL
     : ImageSize.BIG;
 
-  const [buttonClickHandle] = useFavoriteStatus(offer);
+  const [handleClickButton] = useFavoriteStatus(offer);
 
   return (
     <article
-      className={`${ClassNameCardType[cardType].card} place-card`}
-      onMouseOver={() => offerMouseOverHandle && offerMouseOverHandle(offer.id)}
+      className={`${ClassNameCard[cardType].Card} place-card`}
+      onMouseOver={() => onOfferMouseOverHandle && onOfferMouseOverHandle(offer.id)}
     >
       {offer.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
         </div> : null}
-      <div className={`${ClassNameCardType[cardType].wrapper} place-card__image-wrapper`}>
+      <div className={`${ClassNameCard[cardType].Wrapper} place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage}
             width={imageSize.width}
@@ -39,7 +39,7 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle, isSmall }: OfferCard
           />
         </Link>
       </div>
-      <div className={`${ClassNameCardType[cardType].info} place-card__info`}>
+      <div className={`${ClassNameCard[cardType].Info} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{offer.price}</b>
@@ -48,7 +48,7 @@ const OfferCard = ({ offer, cardType, offerMouseOverHandle, isSmall }: OfferCard
           <button
             className={offer.isFavorite ? 'place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
-            onClick={buttonClickHandle}
+            onClick={handleClickButton}
           >
             <svg
               className="place-card__bookmark-icon"

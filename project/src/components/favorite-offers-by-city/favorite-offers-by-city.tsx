@@ -5,12 +5,13 @@ import { selectCity, selectDefaultSortyngType } from '../../store/offer-process/
 import { Offers } from '../../types/offers';
 import OfferCard from '../offer-card/offer-card';
 
-type FavoriteItemProps = {
+type FavoriteOffersByCityProps = {
   offers: [string, Offers]
 }
 
-const FavoriteOffersByCity = ({ offers }: FavoriteItemProps): JSX.Element => {
+const FavoriteOffersByCity = ({ offers }: FavoriteOffersByCityProps): JSX.Element => {
   const dispatch = useAppDispatch();
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">

@@ -18,7 +18,7 @@ const MainScreen = (): JSX.Element => {
   const offersByCity = useAppSelector(filterOffers);
   const classNameMainContainer = offersByCity && offersByCity?.length > 0 ? '' : 'page__main--index-empty';
 
-  const handleOfferMouseOver = (id: number | undefined) => {
+  const onMouseOverHandle = (id: number | undefined) => {
     const currentOffer = offersByCity && offersByCity.find((offer) => offer.id === id);
     setSelectedOffer(currentOffer);
   };
@@ -41,7 +41,7 @@ const MainScreen = (): JSX.Element => {
                 <OffersList
                   offers={offersByCity}
                   cardType={'places'}
-                  offerMouseOverHandle={handleOfferMouseOver}
+                  offerMouseOverHandle={onMouseOverHandle}
                 />
               </section>
               <div className="cities__right-section">

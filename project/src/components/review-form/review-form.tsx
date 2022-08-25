@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
 import { useReviewForm } from '../../hooks/useReviewForm';
 import RatingList from '../rating-list/rating-list';
@@ -6,9 +6,8 @@ import '../review-form/review-form.css';
 
 const ReviewForm = (): JSX.Element => {
 
-  const location = useLocation();
-
-  const urlId = Number(location.pathname.split('/').slice(-1));
+  const { id } = useParams();
+  const offerId = Number(id);
 
   const formContentDefault = {
     rating: 0,
@@ -20,21 +19,21 @@ const ReviewForm = (): JSX.Element => {
     formClassName,
     isFormDisabled,
     isFormValid,
-    formSubmitHandle,
-    radioChangeHandle,
-    textAreaChangeHandle] = useReviewForm(formContentDefault, urlId);
+    handleFormSubmit,
+    handleRadioChange,
+    handleTextAreaChange] = useReviewForm(formContentDefault, offerId);
 
   return (
     <form
       className={formClassName}
       action='#'
       method='post'
-      onSubmit={formSubmitHandle}
+      onSubmit={handleFormSubmit}
     >
       <label className='reviews__label form__label' htmlFor='review'>Your review</label>
       <RatingList
         currentRating={formData.rating}
-        radioChangeHandle={radioChangeHandle}
+        radioChangeHandle={handleRadioChange}
         isFormDisabled={isFormDisabled}
       />
       <textarea
@@ -43,7 +42,7 @@ const ReviewForm = (): JSX.Element => {
         name='review'
         placeholder='Tell how was your stay, what you like and what can be improved'
         value={formData.comment}
-        onChange={textAreaChangeHandle}
+        onChange={handleTextAreaChange}
         minLength={MIN_COMMENT_LENGTH}
         maxLength={MAX_COMMENT_LENGTH}
         disabled={isFormDisabled}

@@ -6,13 +6,13 @@ import { selectDefaultSortyngType } from '../../store/offer-process/offer-proces
 
 const Sorting = (): JSX.Element => {
 
-  const [IsSortingListOpen, setIsSortingListOpen] = useState<boolean>(
-    false
-  );
+  const dispatch = useAppDispatch();
 
   const sortingType = useAppSelector(getSortingType);
 
-  const dispatch = useAppDispatch();
+  const [IsSortingListOpen, setIsSortingListOpen] = useState<boolean>(
+    false
+  );
 
   const handleSortingClick = () => setIsSortingListOpen(!IsSortingListOpen);
 

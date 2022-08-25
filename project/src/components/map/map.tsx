@@ -56,7 +56,7 @@ const Map = (props: MapProps): JSX.Element => {
         }
       });
     };
-  });
+  }, [map, offers, selectedOffer]);
 
   return <div style={{ height: '100%' }} ref={mapRef}></div>;
 };

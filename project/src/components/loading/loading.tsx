@@ -1,6 +1,6 @@
 import '../loading/loading.css';
 
-const LoadingScreen = (): JSX.Element => (
+const Loading = (): JSX.Element => (
   <div>
     <div className="preloader">
       <div className="preloader__row">
@@ -11,4 +11,4 @@ const LoadingScreen = (): JSX.Element => (
   </div>
 );
 
-export default LoadingScreen;
+export default Loading;

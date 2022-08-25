@@ -5,7 +5,7 @@ import FavoriteOffersByCity from '../../components/favorite-offers-by-city/favor
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import { useAppSelector } from '../../hooks';
 import { getDataLoadedStatus, getFavoritesOffers } from '../../store/offer-data/selectors';
-import LoadingScreen from '../../components/loading/loading';
+import Loading from '../../components/loading/loading';
 import { Offers } from '../../types/offers';
 
 const FavoritesScreen = (): JSX.Element => {
@@ -34,7 +34,7 @@ const FavoritesScreen = (): JSX.Element => {
     !favoritesOffers
   ) {
     return (
-      <LoadingScreen />
+      <Loading />
     );
   }
 

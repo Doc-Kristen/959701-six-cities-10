@@ -45,18 +45,18 @@ export const useReviewForm = (formContentDefault: UserReview, urlId: number): Re
     }
   };
 
-  const formSubmitHandle = (evt: React.MouseEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: React.MouseEvent<HTMLFormElement>) => {
     evt.preventDefault();
     sendReview();
   };
 
-  const radioChangeHandle = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRadioChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, rating: Number(evt.target.value) });
   };
 
-  const textAreaChangeHandle = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextAreaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({ ...formData, comment: evt.target.value });
   };
 
-  return [formData, formClassName, isFormDisabled, isFormValid, formSubmitHandle, radioChangeHandle, textAreaChangeHandle];
+  return [formData, formClassName, isFormDisabled, isFormValid, handleFormSubmit, handleRadioChange, handleTextAreaChange];
 };

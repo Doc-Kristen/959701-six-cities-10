@@ -1,4 +1,4 @@
-import { ClassNameCardType } from '../const';
+import { ClassNameCard } from '../const';
 
 type Location = {
     latitude: number
@@ -37,6 +37,6 @@ type Offer = {
 
 type Offers = Offer[];
 
-type ClassNameCard = keyof typeof ClassNameCardType;
+type ClassNameCardType = keyof typeof ClassNameCard;
 
-export type { Offer, Offers, City, ClassNameCard };
+export type { Offer, Offers, City, ClassNameCardType };

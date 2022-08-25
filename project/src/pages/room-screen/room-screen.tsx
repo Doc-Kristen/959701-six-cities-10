@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Header from '../../components/header/header';
-import ReviewList from '../../components/reviews-list/reviews-list';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
-import { AuthorizationStatus, MAX_PHOTO_COUNT, MAX_REVIEWS_COUNT, OfferType } from '../../const';
+import { AuthorizationStatus, MAX_NEAR_OFFERS, MAX_PHOTO_COUNT, MAX_REVIEWS_COUNT, OfferType } from '../../const';
 import { getDataLoadedStatus, getNearOffers, getReviews, getSelectedOffer } from '../../store/offer-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useFavoriteStatus } from '../../hooks/useFavoriteStatus';
@@ -12,27 +12,36 @@ import { calcRating, sortReviewsDayDown } from '../../utils';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchSelectedOfferAction } from '../../store/api-actions';
-import LoadingScreen from '../../components/loading/loading';
+import Loading from '../../components/loading/loading';
 
 const RoomScreen = (): JSX.Element => {
 
+  const dispatch = useAppDispatch();
+
   const { id } = useParams();
   const offerId = Number(id);
-  const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isDataLoaded = useAppSelector(getDataLoadedStatus);
   const selectedOffer = useAppSelector(getSelectedOffer);
   const allReviews = useAppSelector(getReviews);
   const lastReviews = allReviews && allReviews.slice().sort(sortReviewsDayDown).slice(0, MAX_REVIEWS_COUNT);
-  const nearOffers = useAppSelector(getNearOffers);
+  const nearOffers = useAppSelector(getNearOffers).slice(0, MAX_NEAR_OFFERS);
 
-  const favoriteButtonStyle = selectedOffer?.isFavorite ? '#4481c3' : 'none';
   const currentRating = selectedOffer ? calcRating(selectedOffer.rating) : 0;
   const [buttonClickHandle] = useFavoriteStatus(selectedOffer);
 
   useEffect(() => {
-    dispatch(fetchSelectedOfferAction(offerId));
+    let isMounted = true;
+    if (isMounted) {
+      const fetchData = async () => {
+        dispatch(fetchSelectedOfferAction(offerId));
+      };
+      fetchData();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, offerId]);
 
   if (
@@ -40,7 +49,7 @@ const RoomScreen = (): JSX.Element => {
     !selectedOffer
   ) {
     return (
-      <LoadingScreen />
+      <Loading />
     );
   }
 
@@ -77,9 +86,7 @@ const RoomScreen = (): JSX.Element => {
                   type='button'
                   onClick={buttonClickHandle}
                 >
-                  <svg
-                    style={{ fill: favoriteButtonStyle }} className='property__bookmark-icon' width='31' height='33'
-                  >
+                  <svg className='place-card__bookmark-icon' width='31' height='33'>
                     <use xlinkHref='#icon-bookmark'></use>
                   </svg>
                   <span className='visually-hidden'>To bookmarks</span>
@@ -143,7 +150,7 @@ const RoomScreen = (): JSX.Element => {
                   Reviews &middot;
                   <span className="reviews__amount">{lastReviews && lastReviews.length}</span>
                 </h2>
-                <ReviewList
+                <ReviewsList
                   reviews={lastReviews}
                 />
                 {authorizationStatus === AuthorizationStatus.Auth ? <ReviewForm /> : null}

@@ -12,6 +12,8 @@ const MAX_PHOTO_COUNT = 6;
 
 const MAX_RATING = 5;
 
+const MAX_NEAR_OFFERS = 3;
+
 const ImageSize = {
   BIG: {
     width: 260,
@@ -45,24 +47,24 @@ enum APIRoute {
   Favorites = '/favorite'
 }
 
-const ClassNameCardType = {
+const ClassNameCard = {
   'places': {
-    card: 'cities__card',
-    list: 'cities__places-list',
-    wrapper: 'cities__image-wrapper',
-    info: ''
+    Card: 'cities__card',
+    List: 'cities__places-list',
+    Wrapper: 'cities__image-wrapper',
+    Info: ''
   },
   'near-places': {
-    card: 'near-places__card',
-    list: 'near-places__list',
-    wrapper: 'near-places__image-wrapper',
-    info: ''
+    Card: 'near-places__card',
+    List: 'near-places__list',
+    Wrapper: 'near-places__image-wrapper',
+    Info: ''
   },
   'favorite-places': {
-    card: 'favorites__card',
-    list: 'favorites__list',
-    wrapper: 'favorites__image-wrapper',
-    info: 'favorites__card-info'
+    Card: 'favorites__card',
+    List: 'favorites__list',
+    Wrapper: 'favorites__image-wrapper',
+    Info: 'favorites__card-info'
   }
 } as const;
 
@@ -88,27 +90,27 @@ const OfferType: { [char: string]: string } = {
 
 const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-const ratingValues =
+const RatingValues =
   [
     {
-      title: 'perfect',
-      value: 5
+      Title: 'perfect',
+      Value: 5
     },
     {
-      title: 'good',
-      value: 4
+      Title: 'good',
+      Value: 4
     },
     {
-      title: 'bad',
-      value: 3
+      Title: 'not bad',
+      Value: 3
     },
     {
-      title: 'badly',
-      value: 2
+      Title: 'badly',
+      Value: 2
     },
     {
-      title: 'terribly',
-      value: 1
+      Title: 'terribly',
+      Value: 1
     }
   ];
 
@@ -124,13 +126,14 @@ export {
   URL_MARKER_CURRENT,
   URL_MARKER_DEFAULT,
   cities,
-  ClassNameCardType,
+  ClassNameCard,
   MIN_COMMENT_LENGTH,
   MAX_COMMENT_LENGTH,
-  ratingValues,
+  RatingValues as ratingValues,
   MAX_REVIEWS_COUNT,
   MAX_PHOTO_COUNT,
   MAX_RATING,
+  MAX_NEAR_OFFERS,
   passwordRegExp,
   ImageSize
 };
