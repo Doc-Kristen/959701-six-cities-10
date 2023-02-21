@@ -13,7 +13,7 @@
 
 ---
 
-[Посмотреть демо](https://959701-six-cities-10-nmch.vercel.app/))
+[Посмотреть демо](https://959701-six-cities-10-nmch.vercel.app/)
 
 ---
 
